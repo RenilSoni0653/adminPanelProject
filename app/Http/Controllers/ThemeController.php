@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Table;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class ThemeController extends Controller
 {
     public function index()
-    {
+    {   
         return view('theme.index');
     }
 
@@ -87,5 +88,14 @@ class ThemeController extends Controller
     public function register()
     {
         return view('theme.register');
+    }
+
+    public function log()
+    {
+        $data = \DB::table('users')
+        ->where('id','=',auth()->user()->id)
+        ->get();
+        
+        return view('theme.activity_log',compact('data'));
     }
 }

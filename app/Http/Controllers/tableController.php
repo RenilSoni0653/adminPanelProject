@@ -36,16 +36,6 @@ class tableController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'user_id' => '',
-        //     'name' => 'required|max:255',
-        //     'position' => 'required|max:255',
-        //     'office' => 'required|max:255',
-        //     'age' => 'required',
-        //     'start_date' => 'required|date',
-        //     'salary' => 'required',
-        // ]);
-        
         $user = new Table;
         $user->user_id = $request->input('id');
         $user->name = $request->input('username');

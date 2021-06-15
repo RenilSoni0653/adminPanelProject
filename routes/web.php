@@ -18,7 +18,6 @@ Route::get('/', function () {
 });
 
 Route::post('account','ThemeController@store');
-Route::get('my-home','ThemeController@index')->name('my-home');
 Route::get('logout-home','ThemeController@logout');
 Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
 Route::post('home','ThemeController@home')->name('home');
@@ -36,3 +35,4 @@ Route::delete('tables/{id}','tableController@destroy')->name('tables.destroy');
 
 Route::get('profile','profileController@index')->name('profile');
 Route::post('profile/{id}','profileController@update')->name('profile.update');
+Route::get('activity-log','ThemeController@log')->name('activity-log');
