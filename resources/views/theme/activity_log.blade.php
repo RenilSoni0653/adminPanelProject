@@ -29,23 +29,20 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Created_at</th>
-                                            <th>Updated_at</th>
+                                            <th>Last_login_at</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Created_at</th>
-                                            <th>Updated_at</th>
+                                            <th>Last_login_at</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $allData)
                                             <tr>
                                                 <td>{{ $allData->fname }}</td>
-                                                <td>{{ $allData->created_at }}</td>
-                                                <td>{{ $allData->updated_at }}</td>
+                                                <td>{{ $allData->last_login_at ?? 'NA' }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

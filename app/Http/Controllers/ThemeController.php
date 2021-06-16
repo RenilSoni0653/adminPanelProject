@@ -97,5 +97,5 @@ class ThemeController extends Controller
         ->get();
         
         return view('theme.activity_log',compact('data'));
-    }
+    }    
 }
