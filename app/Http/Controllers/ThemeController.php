@@ -92,8 +92,9 @@ class ThemeController extends Controller
 
     public function log()
     {
-        $data = \DB::table('users')
-        ->where('id','=',auth()->user()->id)
+        $data = \DB::table('activity_logs')
+        ->where('user_id','=',auth()->user()->id)
+        ->orderBy('last_login_at','DESC')
         ->get();
         
         return view('theme.activity_log',compact('data'));

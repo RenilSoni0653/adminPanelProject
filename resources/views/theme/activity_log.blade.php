@@ -22,28 +22,30 @@
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        
+                        @php $i = 0; @endphp
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>No.</th>
                                             <th>Last_login_at</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>No.</th>
                                             <th>Last_login_at</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $allData)
-                                            <tr>
-                                                <td>{{ $allData->fname }}</td>
-                                                <td>{{ $allData->last_login_at ?? 'NA' }}</td>
-                                            </tr>
+                                            @if($allData->user_id == auth()->user()->id)
+                                                <tr>
+                                                    <td>{{ $i = $i + 1 }}</td>
+                                                    <td>{{ $allData->last_login_at ?? 'NA' }}</td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>

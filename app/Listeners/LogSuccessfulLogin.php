@@ -26,7 +26,10 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        $event->user->last_login_at = date('Y-m-d H:i:s');
-        $event->user->save();
+        $Event = new \App\Activity_log;
+        
+        $Event->user_id = auth()->user()->id;
+        $Event->last_login_at = date('Y-m-d H:i:s');
+        $Event->save();
     }
 }
