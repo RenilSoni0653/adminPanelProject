@@ -98,5 +98,21 @@ class ThemeController extends Controller
         ->get();
         
         return view('theme.activity_log',compact('data'));
-    }    
+    }
+    
+    public function setting()
+    {
+        $id = auth()->user()->id;
+        $record = User::find($id);
+
+        return view('theme.setting',compact('record'));
+    }
+
+    public function destroy($id)
+    {
+        $record = User::find($id);
+        $record->delete();
+
+        return redirect('home')->with('success','User Deleted Successfully');
+    }
 }

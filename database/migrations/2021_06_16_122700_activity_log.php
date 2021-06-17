@@ -16,7 +16,7 @@ class ActivityLog extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->datetime('last_login_at')->nullable();
             $table->timestamps();
         });        

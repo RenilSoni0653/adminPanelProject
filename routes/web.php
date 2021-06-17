@@ -36,3 +36,5 @@ Route::delete('tables/{id}','tableController@destroy')->name('tables.destroy');
 Route::get('profile','profileController@index')->name('profile');
 Route::post('profile/{id}','profileController@update')->name('profile.update');
 Route::get('activity-log','ThemeController@log')->name('activity-log');
+Route::get('settings','ThemeController@setting')->name('settings');
+Route::delete('account/{id}','ThemeController@destroy')->name('account.destroy');
