@@ -108,7 +108,7 @@
         $Oritime = $startTime->format('h:i:s');
         
         $Ohour = explode(':',$Oritime);
-        $hours = $Ohour[0];
+        $hours = $Ohour[0]; fgfgfg
 
         $Omin = explode(':',$Oritime);
         $mins = $Omin[1];
