@@ -38,3 +38,13 @@ Route::post('profile/{id}','profileController@update')->name('profile.update');
 Route::get('activity-log','ThemeController@log')->name('activity-log');
 Route::get('settings','ThemeController@setting')->name('settings');
 Route::delete('account/{id}','ThemeController@destroy')->name('account.destroy');
+
+Route::get('email/sendmail','EmailController@sendmail')->name('email.sendmail');
+Route::post('email/{id}','JobController@enqueue')->name('emails.store');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('users','UserController@index')->name('users');
+    Route::get('notifications','UserController@notifications');
+    Route::post('users/{user}/follow','UserController@follow')->name('follow');
+    Route::delete('users/{user}/unfollow','UserController@unfollow')->name('unfollow');
+});

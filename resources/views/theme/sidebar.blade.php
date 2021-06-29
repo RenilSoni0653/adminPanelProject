@@ -13,19 +13,11 @@
 <hr class="sidebar-divider my-0">
 
 <!-- Nav Item - Dashboard -->
-@if(url()->current() == 'http://localhost:8000/home')
-<li class="nav-item active">
+<li class="{{ Request::is('home') ? 'active' : '' }} nav-item">
     <a class="nav-link" href="{{ asset('/home') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
 </li>
-@else
-<li class="nav-item">
-    <a class="nav-link" href="{{ asset('/home') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-</li>
-@endif
 
 <!-- Divider -->
 <hr class="sidebar-divider">
@@ -93,41 +85,40 @@
             <a class="collapse-item" href="{{ route('Forgot-password') }}">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
             <a class="collapse-item" href="blank.html">Blank Page</a>
         </div>
     </div>
 </li>
 
+<!-- Nav Item - Email -->
+<li class="{{ Request::is('email/*') ? 'active' : '' }} nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
+        aria-expanded="true" aria-controls="collapsePage">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Email</span>
+    </a>
+    <div id="collapsePage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Actions</h6>
+            <a class="collapse-item" href="{{ route('email.sendmail') }}">Send</a>
+        </div>
+    </div>
+</li>
+
 <!-- Nav Item - Charts -->
-@if(url()->current() == 'http://localhost:8000/charts/index')
-<li class="nav-item active">
+<li class="{{ Request::is('charts/*') ? 'active' : '' }} nav-item">
     <a class="nav-link" href="{{ route('charts.index') }}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Charts</span></a>
 </li>
-@else
-<li class="nav-item">
-    <a class="nav-link" href="{{ route('charts.index') }}">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Charts</span></a>
-</li>
-@endif
 
 <!-- Nav Item - Tables -->
-@if(url()->current() == 'http://localhost:8000/tables/index' || Route::is('tables.create') || Route::is('tables.edit'))
-        <li class="nav-item active">
+<li class="{{ Request::is('tables/*') ? 'active' : '' }} nav-item">
         <a class="nav-link" href="{{ route('tables.index') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span></a>
 </li>
-@else
-<li class="nav-item">
-    <a class="nav-link" href="{{ route('tables.index') }}">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Tables</span></a>
-</li>
-@endif
+
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

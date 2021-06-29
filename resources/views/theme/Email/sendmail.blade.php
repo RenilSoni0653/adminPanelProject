@@ -18,7 +18,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Send Data</h1>
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -26,34 +26,48 @@
                         <!-- -->
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ url('account/'.auth()->user()->id) }}">
+                            <form method="POST" action="{{ url('/email/'.auth()->user()->id) }}">
                             @csrf
-                            @method('DELETE')
-
                             <!-- User Form -->    
-                            <label>Name : </label>
-                            <input type="text" class="form-control form-control-user" id="exampleName" aria-describedby="nameHelp" placeholder="Enter name" name="username" value="{{ $record->fname }}" readonly><br>
-                            @error('username')
+                            <label>From : </label>
+                            <input type="text" class="form-control form-control-user" id="exampleFrom" aria-describedby="fromHelp" placeholder="Enter email-id" name="from_email"><br>
+                            @error('from_email')
                                 <div class="alert alert-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
 
-                            <label>Email-id : </label>
-                            <input type="text" class="form-control form-control-user" id="exampleEmail" aria-describedby="emailHelp" placeholder="Enter email-id" name="email" value="{{ $record->email }}" readonly><br>
-                            @error('email')
+                            <label>To : </label>
+                            <input type="text" class="form-control form-control-user" id="exampleTo" aria-describedby="toHelp" placeholder="Enter email-id" name="to_email"><br>
+                            @error('to_email')
                                 <div class="alert alert-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
+
+                            <label>Subject : </label>
+                            <input type="text" class="form-control form-control-user" id="exampleSubject" aria-describedby="subjectHelp" placeholder="Enter subject" name="subject"><br>
+                            @error('subject')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            
+                            <label>Description : </label>
+                            <textarea cols="5" rows="10" class="form-control form-control-user" id="exampleDescription" aria-describedby="descriptionHelp" placeholder="Enter description" name="description"></textarea><br>
+                            @error('description')
+                                <div class="alert alert-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
 
                             <div class="card-header py-3">
                                 <input type="hidden" name="id" value="{{ auth()->user()->id }}">
-                                <button class="btn btn-danger" onClick="ConfirmDelete()">Delete Account</button>
+                                <button class="btn btn-primary btn-user">Send</button>
                             </div>
-
-                        </form>
-                        <!-- End of User Form -->
+                            </form>
+                            <!-- End of User Form -->
                         </div>
                     </div>
 
@@ -95,16 +109,4 @@
 
     <!-- Page level custom scripts -->
     <script src="{!! asset('theme/js/demo/datatables-demo.js') !!}"></script>
-
-    <!-- Delete confirmation script -->
-    <script>
-        function ConfirmDelete() {
-            var x = confirm('Are you sure to delete account?');
-            if(x) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
 @endsection

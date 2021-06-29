@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class tableController extends Controller
 {

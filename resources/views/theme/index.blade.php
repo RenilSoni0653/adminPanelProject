@@ -9,7 +9,7 @@
         @include('theme.sidebar')
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+        
             <!-- Main Content -->
             <div id="content">
                 @include('theme.topbar')
@@ -96,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            <a href="{{ route('tables.index') }}"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></a>
                                         </div>
                                     </div>
                                 </div>

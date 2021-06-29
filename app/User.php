@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fname', 'lname', 'email', 'password', 'last_login_at',
+        'fname', 'lname', 'email', 'password',
     ];
 
     /**
@@ -40,5 +40,37 @@ class User extends Authenticatable
     public function activity_logs()
     {
         return $this->hasMany(Activity_log::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(self::class,'followers','followers_id','user_id')->withTimestamps();
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(self::class,'followers','user_id','followers_id')->withTimestamps();
+    }
+
+    public function follow($userId)
+    {
+        $this->follows()->attach($userId);
+        return $this;
+    }
+
+    public function unfollow($userId)
+    {
+        $this->follows()->detach($userId);
+        return $this;
+    }
+
+    public function isFollowing($userId)
+    {
+        return (boolean) $this->follows()->where('follows_id',$userId)->first(['id']);
+    }
+
+    public function setFirstNameAttribute($value)
+    {
+        $this->attribute['fname'] = strtoupper($value);
     }
 }
