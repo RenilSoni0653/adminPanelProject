@@ -69,8 +69,8 @@ class User extends Authenticatable
         return (boolean) $this->follows()->where('follows_id',$userId)->first(['id']);
     }
 
-    public function setFirstNameAttribute($value)
+    public function tables()
     {
-        $this->attribute['fname'] = strtoupper($value);
+        return $this->hasMany(Table::class);
     }
 }

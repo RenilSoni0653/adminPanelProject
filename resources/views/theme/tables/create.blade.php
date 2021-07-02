@@ -23,15 +23,15 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <!-- -->
+                            <a href="{{ url('tables/index') }}" class="btn btn-primary btn-user">Back</a>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('tables.store') }}">
                             @csrf
                             <!-- User Form -->    
                             <label>Name : </label>
-                            <input type="text" class="form-control form-control-user" id="exampleName" aria-describedby="nameHelp" placeholder="Enter name" name="username"><br>
-                            @error('username')
+                            <input type="text" class="form-control form-control-user" id="exampleName" aria-describedby="nameHelp" placeholder="Enter name" name="name"><br>
+                            @error('name')
                                 <div class="alert alert-danger">
                                     {{ $message }}
                                 </div>
@@ -63,7 +63,7 @@
 
                             <label>Start_date : </label>
                             <input type="date" class="form-control form-control-user" id="exampleDate" aria-describedby="dateHelp" placeholder="Populate today's date" name="start_date"><br>
-                            @error('date')
+                            @error('start_date')
                                 <div class="alert alert-danger">
                                     {{ $message }}
                                 </div>

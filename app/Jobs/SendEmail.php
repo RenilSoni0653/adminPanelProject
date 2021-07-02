@@ -46,7 +46,22 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
+        $description = strip_tags(htmlspecialchars_decode(Request()->input('description')));
         $email = new EmailForQueuing();
-        Mail::to($this->details['email'])->send($email);
+
+        $user = \App\User::find(auth()->user()->id);
+        $from_email = Request()->input('from_email');
+        $to_email = Request()->input('to_email');
+        $subject = Request()->input('subject');
+        $data = array('name' => $user->fname,'body' => 'Test mail');
+
+        Mail::send(['text' => 'theme.email.emailnotification'],$data, function($message) use ($user, $from_email, $to_email, $subject) {
+            $message->to($to_email, 'Test')->subject($subject);
+            $message->from($from_email, $user->fname);
+        });
+
+        // Mail::to($this->details['email'])->send($email,$data, function($message) {
+        //     $message->attachment($);
+        // });
     }
 }

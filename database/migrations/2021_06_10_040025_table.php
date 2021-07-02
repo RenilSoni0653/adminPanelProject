@@ -23,6 +23,7 @@ class Table extends Migration
             $table->integer('age');
             $table->date('start_date');
             $table->integer('salary');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

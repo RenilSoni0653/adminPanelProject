@@ -106,30 +106,6 @@
         $Time = Carbon\Carbon::now();
         $startTime = Carbon\Carbon::parse($Time);
         $Oritime = $startTime->format('h:i:s');
-        
-        $Ohour = explode(':',$Oritime);
-        $hours = $Ohour[0]; fgfgfg
-
-        $Omin = explode(':',$Oritime);
-        $mins = $Omin[1];
-
-        $Osec = explode(':',$Oritime);
-        $secs = $Osec[2];
-
-        foreach($mails as $data)
-        {
-            $endTime = Carbon\Carbon::parse($data->created_at);
-            $DBTime = $endTime->format('h:i:s');
-        }
-        
-        $DBhour = explode(':','20:21:12');
-        $Dhours = $DBhour[0];
-
-        $DBmin = explode(':',$DBTime);
-        $Dmins = $DBmin[1];
-
-        $DBsec = explode(':',$DBTime);
-        $Dsecs = $DBsec[2];
     @endphp
     
     <!-- Nav Item - Messages -->
@@ -138,7 +114,7 @@
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-envelope fa-fw"></i>
             <!-- Counter - Messages -->
-                <span class="{{ count($mails) != 0 ? 'badge badge-danger badge-counter' : '' }}">{{ count($mails) }}</span>
+                <span class="{{ count($mails) != 0 ? 'badge badge-danger badge-counter' : '' }}">{{ count($mails) == 0 ? '' : count($mails) }}</span>
         </a>
 
         <!-- Dropdown - Messages -->
@@ -147,8 +123,13 @@
             <h6 class="dropdown-header">
                 Send emails
             </h6>
-            @foreach($mails as $data)
-                <a class="dropdown-item d-flex align-items-center" href="#">
+                @foreach($mails as $data)
+                @php 
+                    $endTime = Carbon\Carbon::parse($data->created_at);
+                    $DBTime = $endTime->format('h:i:s');
+                @endphp
+
+                <a class="dropdown-item d-flex align-items-center" href="#" target="_blank">
                     <div class="dropdown-list-image mr-3">
                         <img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
                         <div class="status-indicator bg-success"></div>
@@ -156,12 +137,14 @@
                     
                     <div class="font-weight-bold">
                         <div class="text-truncate">{{ $data->description }}</div>
-                        <div class="small text-gray-500">{{ $data->name }} · {{ abs(($Dhours+12) - ($hours)).' Hours :'.abs($Dmins - $mins).' Minutes '.abs($Dsecs - $secs).' Secs' }}</div>
+                        <div class="small text-gray-500">{{ $data->name }} · {{ $endTime->diffForHumans($Time) }}</div>
                     </div>
                 </a>
-            @endforeach
-            
-            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+
+                @endforeach
+                @if(count($mails) == 0)
+                    <div class="dropdown-item text-center small text-gray-500">No mails Available</div>
+                @endif
         </div>
     </li>
 

@@ -54,7 +54,8 @@
                             @enderror
                             
                             <label>Description : </label>
-                            <textarea cols="5" rows="10" class="form-control form-control-user" id="exampleDescription" aria-describedby="descriptionHelp" placeholder="Enter description" name="description"></textarea><br>
+                            <!-- <textarea cols="5" rows="10" class="form-control form-control-user" id="exampleDescription" aria-describedby="descriptionHelp" placeholder="Enter description" name="description"></textarea><br> -->
+                            <textarea name="description" id="description"></textarea>
                             @error('description')
                                 <div class="alert alert-danger">
                                     {{ $message }}

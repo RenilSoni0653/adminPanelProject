@@ -105,6 +105,21 @@
     </div>
 </li>
 
+<!-- Nav Item - Images -->
+<li class="{{ Request::is('images/*') ? 'active' : '' }} nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePageImage"
+        aria-expanded="true" aria-controls="collapsePageImage">
+        <i class="fas fa-fw fa-image"></i>
+        <span>Images</span>
+    </a>
+    <div id="collapsePageImage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Actions</h6>
+            <a class="collapse-item" href="{{ url('images/uploadImage') }}">Upload</a>
+        </div>
+    </div>
+</li>
+
 <!-- Nav Item - Charts -->
 <li class="{{ Request::is('charts/*') ? 'active' : '' }} nav-item">
     <a class="nav-link" href="{{ route('charts.index') }}">
@@ -119,6 +134,12 @@
             <span>Tables</span></a>
 </li>
 
+<!-- Nav Item - Maps -->
+<li class="{{ Request::is('maps') ? 'active' : '' }} nav-item">
+        <a class="nav-link" href="{{ route('maps.index') }}">
+            <i class="fa fa-fw fa-map-marker"></i>
+            <span>Maps (BETA)</span></a>
+</li>
 
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">

@@ -1,1 +1,1 @@
-{{ Request()->input('description') }}
+{{ strip_tags(htmlspecialchars_decode(Request()->input('description'))) }}

@@ -16,7 +16,7 @@ class EmailController extends Controller
 
     public function basic_mail(Request $request,$id)
     {
-        // Storing data into database
+        //Storing data into database
         $user = User::find($id);
 
         $email = new Email;

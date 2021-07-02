@@ -48,3 +48,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('users/{user}/follow','UserController@follow')->name('follow');
     Route::delete('users/{user}/unfollow','UserController@unfollow')->name('unfollow');
 });
+
+Route::get('tables/trash','tableController@trash')->name('tables.trash');
+Route::get('tables/{id}/restore','tableController@restoreData')->name('tables.restore');
+Route::get('tables/{id}/deletePer','tableController@deletePermenantly')->name('tables.permenant');
+
+Route::get('maps','MapsController@index')->name('maps.index');
+
+Route::get('images/uploadImage','ImageController@index')->name('images.uplaodImage');
+Route::post('upload', 'ImageController@uploadFile')->name('drag-drop');

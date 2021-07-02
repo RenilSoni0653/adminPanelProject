@@ -20,6 +20,15 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    @if(session()->has('success'))
+                                    <div class="alert alert-success">
+                                        {{ session()->get('success') }}
+                                    </div>
+                                    @else
+                                    <div class="alert alert-error">
+                                        {{ session()->get('error') }}
+                                    </div>
+                                    @endif
                                     <form class="user" action="{{ url('home') }}" method="POST">
                                     @csrf
                                         <div class="form-group">

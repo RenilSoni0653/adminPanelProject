@@ -18,42 +18,33 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Account Information</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Upload Image</h1>
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <!-- -->
+                            <!-- -->
                         </div>
+                        @if(session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                        @endif
                         <div class="card-body">
-                            <form method="POST" action="{{ url('account/'.auth()->user()->id) }}">
-                            @csrf
-                            @method('DELETE')
-
-                            <!-- User Form -->    
-                            <label>Name : </label>
-                            <input type="text" class="form-control form-control-user" id="exampleName" aria-describedby="nameHelp" placeholder="Enter name" name="username" value="{{ $record->fname }}" readonly><br>
-                            @error('username')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
+                            <div class="table-responsive">
+                                <div id="dropzone">
+                                    <form action="{{ url('upload') }}" method="POST" files="true" name="file" class="dropzone" id="uploadFile" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="dz-message">
+                                            Drag Your Files Here
+                                        </div>
+                                    </form>
+                                    <form method="POST" action="{{ url('upload') }}">
+                                    @csrf
+                                        <br><button class="btn btn-primary">Save</button>
+                                    </form>
                                 </div>
-                            @enderror
-
-                            <label>Email-id : </label>
-                            <input type="text" class="form-control form-control-user" id="exampleEmail" aria-describedby="emailHelp" placeholder="Enter email-id" name="email" value="{{ $record->email }}" readonly><br>
-                            @error('email')
-                                <div class="alert alert-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-
-                            <div class="card-header py-3">
-                                <input type="hidden" name="id" value="{{ auth()->user()->id }}">
-                                <button class="btn btn-danger" onClick="return confirm('Do want to delete account?')">Delete Account</button>
                             </div>
-
-                        </form>
-                        <!-- End of User Form -->
                         </div>
                     </div>
 
@@ -95,16 +86,4 @@
 
     <!-- Page level custom scripts -->
     <script src="{!! asset('theme/js/demo/datatables-demo.js') !!}"></script>
-
-    <!-- Delete confirmation script -->
-    <script>
-        function ConfirmDelete() {
-            var x = confirm('Are you sure to delete account?');
-            if(x) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    </script>
 @endsection

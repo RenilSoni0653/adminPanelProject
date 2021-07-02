@@ -15,6 +15,7 @@ class profileController extends Controller
     {
         $id = auth()->user()->id;
         $user = \App\User::find($id);
+        
         return view('theme.profile.index',compact('user'));
     }
 

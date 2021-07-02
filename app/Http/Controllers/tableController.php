@@ -37,15 +37,32 @@ class tableController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new Table;
-        $user->user_id = $request->input('id');
-        $user->name = $request->input('username');
-        $user->position = $request->input('position');
-        $user->office = $request->input('office');
-        $user->age = $request->input('age');
-        $user->start_date = $request->input('start_date');
-        $user->salary = $request->input('salary');
-        $user->save();
+        $request->validate([
+            'name' => 'required',
+            'position' => 'required',
+            'office' => 'required',
+            'age' => 'required|min:1',
+            'start_date' => 'required|date',
+            'salary' => 'required'
+        ],
+        [
+            'name.required' => 'Name field is required',
+            'position.required' => 'Position field is required',
+            'office.required' => 'Office field is required',
+            'age.required' => 'Age field is required',
+            'start_date.required' => 'Start date field is required',
+            'salary.required' => 'Salary field is required'
+        ]);
+
+        $user = Table::create([
+            'user_id' => $request->input('id'),
+            'name' => $request->input('username'),
+            'position' => $request->input('position'),
+            'office' => $request->input('office'),
+            'age' => $request->input('age'),
+            'start_date' => $request->input('start_date'),
+            'salary' => $request->input('salary')
+        ]);
 
         return redirect('tables/index')->with('success','Data Entered Successfully');
     }
@@ -82,9 +99,9 @@ class tableController extends Controller
      */
     public function update(Request $request)
     {
-        $table = Table::find($request->record);
+        $table = Table::find($request->id);
         $data = $table->update([
-            'user_id' => $request->input('id'),
+            'user_id' => auth()->user()->id,
             'name' => $request->input('username'),
             'position' => $request->input('position'),
             'office' => $request->input('office'),
@@ -107,6 +124,29 @@ class tableController extends Controller
         $table = Table::find($id);
         $table->delete();
 
-        return redirect('tables/index');
+        return redirect('tables/index')->with('success','Data deleted successfully');
+    }
+
+    public function trash()
+    {
+        $table = Table::onlyTrashed()->get();
+        
+        return view('theme.tables.trash')->with(compact('table'));
+    }
+    
+    public function restoreData($id)
+    {
+        $table = Table::where('id','=',$id)->withTrashed()->first();
+        $table->restore();
+
+        return redirect('tables/index')->with('success','Data restored successfully');
+    }
+
+    public function deletePermenantly($id)
+    {
+        $table = Table::where('id','=',$id)->withTrashed()->first();
+        $table->forceDelete();
+
+        return redirect('tables/index')->with('success','Data deleted successfully');
     }
 }

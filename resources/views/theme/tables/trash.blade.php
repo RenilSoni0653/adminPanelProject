@@ -18,13 +18,12 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Trash</h1>
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <p><a href="{{ url('tables/create') }}" class="btn btn-primary btn-user">Add Data</a>  |  
-                        <a href="{{ url('tables/trash') }}" class="btn btn-primary btn-user">Show Deleted Data</a></p>
+                        <p><a href="{{ url('tables/index') }}" class="btn btn-primary btn-user">Back</a>
                         </div>
                         @if(session()->has('success'))
                         <div class="alert alert-success">
@@ -43,6 +42,7 @@
                                             <th>Start date</th>
                                             <th>Salary</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -54,33 +54,21 @@
                                             <th>Start date</th>
                                             <th>Salary</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        @foreach($data as $allData)
-                                        @if($allData->deleted_at == NULL)
-                                            @if(auth()->user()->id == $allData->user_id)
-                                            <tr>
-                                                <td>{{ $allData->name }}</td>
-                                                <td>{{ $allData->position }}</td>
-                                                <td>{{ $allData->office }}</td>
-                                                <td>{{ $allData->age }}</td>
-                                                <td>{{ $allData->start_date }}</td>
-                                                <td>{{ $allData->salary }}</td>
-                                                <td>
-                                                    <center>
-                                                            <p><a href="{{ url('tables/'.$allData->id.'/edit') }}" class="btn btn-primary">Edit</a></p>
-                                                            
-                                                            <form method="POST" action="{{ url('tables/'.$allData->id) }}">
-                                                            @csrf()
-                                                            @method('DELETE')
-                                                            <button class="btn btn-primary" onClick="return confirm('Are You sure?')">Trash</button>
-                                                            </form>
-                                                    </center>
-                                                </td>
-                                            </tr>
-                                            @endif
-                                            @endif
+                                        @foreach($table as $data)
+                                        <tr>
+                                            <td>{{ $data->name }}</td>
+                                            <td>{{ $data->position }}</td>
+                                            <td>{{ $data->office }}</td>
+                                            <td>{{ $data->age }}</td>
+                                            <td>{{ $data->start_date }}</td>
+                                            <td>{{ $data->salary }}</td>
+                                            <td><a class="btn btn-primary" href="{{ url('tables/'.$data->id.'/restore') }} " onClick="return confirm('Do you want to restore it?')">Restore</a></td>
+                                            <td><a class="btn btn-primary" href="{{ url('tables/'.$data->id.'/deletePer') }}" onClick="return confirm('Do you want to delete permenantly?')">Permenantaly</a></td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
