@@ -120,6 +120,22 @@
     </div>
 </li>
 
+<!-- Nav Item - Dropdown -->
+<li class="{{ Request::is('dropdown/*') ? 'active' : '' }} nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePageDropdown"
+        aria-expanded="true" aria-controls="collapsePageDropdown">
+        <i class="fas fa-fw fa-list"></i>
+        <span>Dropdown</span>
+    </a>
+    <div id="collapsePageDropdown" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Actions</h6>
+            <a class="collapse-item" href="{{ url('dropdown/create') }}">Create data</a>
+            <a class="collapse-item" href="{{ url('dropdown/showList/'.auth()->user()->id) }}">Show lists</a>
+        </div>
+    </div>
+</li>
+
 <!-- Nav Item - Charts -->
 <li class="{{ Request::is('charts/*') ? 'active' : '' }} nav-item">
     <a class="nav-link" href="{{ route('charts.index') }}">

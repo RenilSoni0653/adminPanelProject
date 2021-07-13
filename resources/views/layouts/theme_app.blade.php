@@ -19,7 +19,7 @@
     <script src="./index.js"></script>
 
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPEuGOYu8D5UoNoJ0KjancPH3iEs-tgQw&callback=initMap&libraries=&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6XC1QCQ8YBLcurvas6jaMY62Mg_jCSU&callback=initMap&libraries=&v=weekly"
       async
     ></script>
 
@@ -53,7 +53,11 @@
 
     <!-- starting of editor -->
         <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-        <script>tinymce.init({ selector:'textarea' });</script>
+        <script>
+        tinymce.init({ 
+                selector:'textarea'
+            });
+        </script>
     <!-- End of Editor -->
 
     <!-- SB 2 admin panel -->
@@ -66,14 +70,38 @@
 
     <!-- start script of dropzone-->
     
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+    
     <script type="text/javascript">
-        Dropzone.options.imageUpload = {
-            maxFilesize: 1,
-            acceptedFiles: ".jpeg,.jpg,.png,.gif"
+    $(document).ready(function() {
+        Dropzone.options.dropzone =
+         {
+            maxFilesize: 12,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            addRemoveLinks: true,
+
+            renameFile: function(file) {
+                var name = file.name;
+                
+                $.ajax ({
+                    url: '{{ url("images/upload/store") }}',
+                    method: 'POST',
+                    data: {'name':name},
+                    dataType: 'JSON',
+                    contentType:'multipart/form-data',
+                    processData: false,
+                    success: function (file, response) {
+                        console.log("File has been successfully stored!!");
+                    }
+                });
+            }  
         };
+    });
     </script>
 
     <!-- End of dropzone -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Image;
 
 class ImageController extends Controller
 {
@@ -13,15 +14,14 @@ class ImageController extends Controller
 
     public function uploadFile(Request $request)  
     {
-        dd($request);
-        $file = $request->file('file');
-        $fileName = time().'.'.$file->extension();
-        $file->move(public_path('images'),$fileName);
+        $image = $request->file('file');
+        $imageName = $image->getClientOriginalName();
+        $image->move(public_path('images'),$imageName);
 
         $imageUpload = new Image();
-        $imageUpload->filename = $filename;
+        $imageUpload->name = $imageName;
         $imageUpload->save();
 
-        return response()->json(['success'=>$fileName]);
+        return response()->json(['success' => $imageName]);
     } 
 }

@@ -63,7 +63,7 @@
 
                             <label>Start_date : </label>
                             <input type="date" class="form-control form-control-user" id="exampleDate" aria-describedby="dateHelp" placeholder="Populate today's date" name="start_date" value="{{ $data->start_date ??old('start_date') }}"><br>
-                            @error('date')
+                            @error('start_date')
                                 <div class="alert alert-danger">
                                     {{ $message }}
                                 </div>

@@ -56,7 +56,7 @@ class tableController extends Controller
 
         $user = Table::create([
             'user_id' => $request->input('id'),
-            'name' => $request->input('username'),
+            'name' => $request->input('name'),
             'position' => $request->input('position'),
             'office' => $request->input('office'),
             'age' => $request->input('age'),
@@ -99,7 +99,27 @@ class tableController extends Controller
      */
     public function update(Request $request)
     {
-        $table = Table::find($request->id);
+        $table = Table::find($request->record);
+
+        $request->validate([
+            'user_id' => [auth()->user()->id],
+            'username' => 'required',
+            'position' => 'required',
+            'office' => 'required',
+            'age' => 'required',
+            'start_date' => 'required|date',
+            'salary' => 'required',
+        ],
+        [
+            'username.required' => 'Name field is required',
+            'position.required' => 'Position field is required',
+            'office.required' => 'Office field is required',
+            'age.required' => 'Age field is required',
+            'start_date.required' => 'Start date field is required',
+            'salary.required' => 'Salary field is required',
+        ]
+    );
+
         $data = $table->update([
             'user_id' => auth()->user()->id,
             'name' => $request->input('username'),

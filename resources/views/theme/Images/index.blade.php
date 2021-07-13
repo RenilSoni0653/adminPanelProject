@@ -23,34 +23,28 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <!-- -->
-                        </div>
-                        @if(session()->has('success'))
-                        <div class="alert alert-success">
-                            {{ session()->get('success') }}
-                        </div>
-                        @endif
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <div id="dropzone">
-                                    <form action="{{ url('upload') }}" method="POST" files="true" name="file" class="dropzone" id="uploadFile" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="dz-message">
-                                            Drag Your Files Here
-                                        </div>
-                                    </form>
-                                    <form method="POST" action="{{ url('upload') }}">
-                                    @csrf
-                                        <br><button class="btn btn-primary">Save</button>
-                                    </form>
-                                </div>
+                            @if(session()->has('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}
                             </div>
+                            @endif    
                         </div>
-                    </div>
-
+                        
+                        <form action="{{ url('images/upload/store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                            @csrf
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                        <div class="form-controller">
+                                            <div class="dz-message">
+                                                Drag your files here
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <!-- /.container-fluid -->
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 

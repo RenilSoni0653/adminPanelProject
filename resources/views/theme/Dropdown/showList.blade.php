@@ -18,69 +18,53 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Dropdown</h1>
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <p><a href="{{ url('tables/create') }}" class="btn btn-primary btn-user">Add Data</a>  |  
-                        <a href="{{ url('tables/trash') }}" class="btn btn-primary btn-user">Show Deleted Data</a></p>
+                        <p><a href="{{ url('dropdown/create') }}" class="btn btn-primary btn-user">Add Data</a>
                         </div>
                         @if(session()->has('success'))
                         <div class="alert alert-success">
                             {{ session()->get('success') }}
                         </div>
                         @endif
+                        @php $i = 0;  @endphp
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>No.</th>
+                                            <th>Country</th>
+                                            <th>State</th>
+                                            <th>City</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th></th>
-                                        </tr>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Country</th>
+                                        <th>State</th>
+                                        <th>City</th>
+                                        <th></th>
+                                    </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach($data as $allData)
-                                        @if($allData->deleted_at == NULL)
-                                            @if(auth()->user()->id == $allData->user_id)
+                                            
                                             <tr>
-                                                <td>{{ $allData->name }}</td>
-                                                <td>{{ $allData->position }}</td>
-                                                <td>{{ $allData->office }}</td>
-                                                <td>{{ $allData->age }}</td>
-                                                <td>{{ $allData->start_date }}</td>
-                                                <td>{{ $allData->salary }}</td>
+                                                <td>{{ $i = $i + 1 }}</td>
+                                                <td>{{ $allData->country_name }}</td>
+                                                <td>{{ $allData->state_name }}</td>
+                                                <td>{{ $allData->city_name }}</td>
                                                 <td>
-                                                    <center>
-                                                            <p><a href="{{ url('tables/'.$allData->id.'/edit') }}" class="btn btn-primary">Edit</a></p>
-                                                            
-                                                            <form method="POST" action="{{ url('tables/'.$allData->id) }}">
-                                                            @csrf()
-                                                            @method('DELETE')
-                                                            <button class="btn btn-primary" onClick="return confirm('Are you sure?')">Trash</button>
-                                                            </form>
-                                                    </center>
+                                                    <center><a href="{{ url('dropdown/edit/'.$allData->id) }}" class="btn btn-primary">Edit</a></center>
                                                 </td>
                                             </tr>
-                                            @endif
-                                            @endif
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>

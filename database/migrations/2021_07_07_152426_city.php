@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Followers extends Migration
+class City extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class Followers extends Migration
      */
     public function up()
     {
-        Schema::create('followers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->index();
-            $table->integer('follower_id')->index();
+        Schema::create('cities', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('state_id');
             $table->timestamps();
-        });        
+        });
     }
 
     /**
@@ -28,6 +28,6 @@ class Followers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('cities');
     }
 }

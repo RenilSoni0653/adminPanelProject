@@ -23,7 +23,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <p><a href="{{ url('tables/index') }}" class="btn btn-primary btn-user">Back</a>
+                        <p><a href="{{ route('tables.index') }}" class="btn btn-primary btn-user">Back</a>
                         </div>
                         @if(session()->has('success'))
                         <div class="alert alert-success">
