@@ -106,58 +106,28 @@ class DropdownController extends Controller
 
         $countriesValue = \DB::table('countrycitystates')
         ->where('id','=',$id)
-        ->select('country_id','country_name')
+        ->select('country_id','country_name','state_id','city_id')
         ->get();
 
-        // dd($countriesValue);
         $states = \DB::table('states')
         ->where('country_id','=',$countriesValue[0]->country_id)
         ->select('name','id')
         ->get();
-        // dd($states);
 
-        $statesValue = \DB::table('states')
-        ->where('country_id','=',$countriesValue[0]->country_id)
-        ->select('name')
+        $statesValue = \DB::table('countrycitystates')
+        ->where('state_id','=',$countriesValue[0]->state_id)
+        ->select('state_name')
         ->get();
-        // dd($statesValue);
 
         $cities = \DB::table('cities')
-        ->join('countrycitystates','countrycitystates.state_id','=','cities.state_id')
-        ->select('cities.id','cities.name')
-        ->get();
-        dd($cities);
-
-        $citiesValue = \DB::table('cities')
+        ->where('state_id','=',$countriesValue[0]->state_id)
+        ->select('id','name')
         ->get();
 
-        // $countriesValue = \DB::table('countrycitystates')
-        // ->join('countries','countries.name','=','countrycitystates.country_name')
-        // ->select('countries.id','countries.name')
-        // ->get();
-
-        // $countries = \DB::table('countries')
-        // ->select('name','id')
-        // ->get();
-
-        // $statesValue = \DB::table('states')
-        // ->where(['country_id' => $countriesValue[0]->id],
-        // ['name' => $countriesValue[0]->name])
-        // ->select('name','id')
-        // ->get();
-
-        // $states = \DB::table('states')
-        // ->select('name','id')
-        // ->get();
-
-        // $citiesValue = \DB::table('cities')
-        // ->where('state_id','=',$statesValue[0]->id)
-        // ->select('name','id')
-        // ->get();
-
-        // $cities = \DB::table('cities')
-        // ->select('name','id')
-        // ->get();
+        $citiesValue = \DB::table('countrycitystates')
+        ->where('city_id','=',$countriesValue[0]->city_id)
+        ->select('city_name')
+        ->get();
 
         return view('theme.dropdown.edit',compact('countries','countriesValue','states','statesValue','cities','citiesValue'));
     }

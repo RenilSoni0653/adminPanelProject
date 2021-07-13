@@ -48,12 +48,12 @@
                                     </select><br>
 
                                 <label for="state">Select State:</label>
-                                <select id="state" name="state" class="form-control"style="width:950px">
+                                    <select id="state" name="state" class="form-control"style="width:950px">
                                             @foreach($statesValue as $value)
-                                                <option value="" selected>{{ $value->name }}</option>
+                                                <option value="" selected>{{ $value->state_name }}</option>
                                             @endforeach
                                             @foreach($states as $key => $state)
-                                                @if($state->name != $state->name)
+                                                @if($value->state_name != $state->name)
                                                     <option value="{{$state->id}}"> {{$state->name}}</option>
                                                 @endif
                                             @endforeach
@@ -62,11 +62,11 @@
                                 <label for="city">Select City:</label>
                                 <select id="city" name="city" class="form-control"style="width:950px">
                                     @foreach($citiesValue as $value)
-                                            <option value="" selected>{{ $value->name }}</option>
+                                            <option value="" selected>{{ $value->city_name }}</option>
                                         @endforeach
                                         @foreach($cities as $key => $city)
-                                            @if($city->name != $city->name)
-                                                <option value="{{$state->id}}"> {{$state->name}}</option>
+                                            @if($value->city_name != $city->name)
+                                                <option value="{{$state->id}}"> {{$city->name}}</option>
                                             @endif
                                         @endforeach                            
                             </select><br>
@@ -144,7 +144,7 @@
                 $('#state').empty();
                 $('#city').empty();
             }
-        
+        });
         $('#state').change(function() {
             var stateID = $(this).val();
             if(stateID) {
@@ -167,6 +167,5 @@
                 $('#city').empty();
             }
         });
-    });
     </script>
 @endsection
