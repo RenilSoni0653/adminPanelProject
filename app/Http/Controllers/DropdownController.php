@@ -173,8 +173,11 @@ class DropdownController extends Controller
         ->where('id','=',$id)
         ->update([
             'country_name' => $country[0],
+            'country_id' => $request->input('country'),
             'state_name' => $state[0],
+            'state_id' => $request->input('state'),
             'city_name' => $city[0],
+            'city_id' => $request->input('city')
         ]);
 
         return redirect('dropdown/showList/'.auth()->user()->id)->with('success','Data updated successfully');
