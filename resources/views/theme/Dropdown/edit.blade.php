@@ -31,7 +31,7 @@
                             {{ session()->get('success') }}
                         </div>
                         @endif
-                        
+
                         <form method="POST" action="{{ url('dropdown/update/'.auth()->user()->id) }}">
                             @csrf
                             <div class="card-body">

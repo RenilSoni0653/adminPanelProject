@@ -15,7 +15,7 @@ class ImageController extends Controller
     public function uploadFile(Request $request)  
     {
         $image = $request->file('file');
-        $imageName = $image->getClientOriginalName();
+        $imageName = $image->getClientOriginalName(); // This will give you extension of file.
         $image->move(public_path('images'),$imageName);
 
         $imageUpload = new Image();

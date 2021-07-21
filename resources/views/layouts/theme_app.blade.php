@@ -13,27 +13,6 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Script for maps-->
-    
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="./index.js"></script>
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6XC1QCQ8YBLcurvas6jaMY62Mg_jCSU&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
-
-    <script>
-        let map;
-
-        function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 5,
-        });
-        }
-    </script>
-
     <style>
         /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -69,10 +48,6 @@
     <!-- End of SB 2 admin panel-->
 
     <!-- start script of dropzone-->
-    
-  <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/min/dropzone.min.js"></script> -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">

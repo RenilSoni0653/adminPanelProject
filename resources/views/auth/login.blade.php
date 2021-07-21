@@ -24,11 +24,12 @@
                                     <div class="alert alert-success">
                                         {{ session()->get('success') }}
                                     </div>
-                                    @else
-                                    <div class="alert alert-error">
-                                        {{ session()->get('error') }}
+                                    @elseif(session()->get('error'))
+                                    <div class="alert alert-danger">
+                                        <div>{{ session()->get('error') }}</div>
                                     </div>
                                     @endif
+
                                     <form class="user" action="{{ url('home') }}" method="POST">
                                     @csrf
                                         <div class="form-group">

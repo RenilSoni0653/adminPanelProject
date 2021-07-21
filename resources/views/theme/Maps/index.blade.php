@@ -18,7 +18,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Maps</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Maps</h1> <!-- mb stands for margin-bottom -->
     
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -69,4 +69,22 @@
 
     <!-- Page level custom scripts -->
     <script src="{!! asset('theme/js/demo/datatables-demo.js') !!}"></script>
+
+    <!-- Maps scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="./index.js"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq6XC1QCQ8YBLcurvas6jaMY62Mg_jCSU&callback=initMap&libraries=&v=weekly" async></script>
+
+    <script>
+        let map;
+
+        function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 5,
+        });
+        }
+    </script>
 @endsection

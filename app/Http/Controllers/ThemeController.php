@@ -115,4 +115,9 @@ class ThemeController extends Controller
 
         return redirect('home')->with('success','User Deleted Successfully');
     }
+
+    public function blank()
+    {
+        return view('theme.blank');
+    }
 }

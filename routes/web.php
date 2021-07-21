@@ -18,9 +18,10 @@ Route::get('/', function () {
 });
 
 // Routes for home, login, logout, forgot-password.
-Route::post('account','ThemeController@store');
 Route::get('logout-home','ThemeController@logout');
+Route::get('blank','ThemeController@blank')->name('blank');
 Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
+Route::post('account','ThemeController@store');
 Route::post('home','ThemeController@home')->name('home');
 Auth::routes();
 
@@ -75,3 +76,6 @@ Route::get('dropdown/showList/{id}','DropdownController@show')->name('dropdown.s
 Route::get('dropdown/edit/{id}','DropdownController@edit')->name('dropdown.edit');
 Route::post('dropdown/update/{id}','DropdownController@update')->name('dropdown.update');
 Route::post('dropdown/store/{id}','DropdownController@store')->name('dropdown.store');
+
+Route::get('test','HomeController@test')->name('test');
+Route::POST('Test','HomeController@test')->name('Test');
