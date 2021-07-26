@@ -26,8 +26,48 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function test()
+    public function blankPage_1()
     {
-        return view('theme.demo_test');
+        $data = \DB::table('demo_test_1')
+        ->select('id','text')
+        ->get();
+
+        return view('theme.blank_page_1',compact('data'));
+    }
+
+    public function blankPage_2()
+    {
+        return view('theme.blank_page_2');
+    }
+
+    public function test(Request $request)
+    {
+        $data = \DB::table('demo_test_1')
+        ->select('id','text')
+        ->get();
+
+        return view('theme.blank_page_1',compact('data'));
+    }
+
+    public function demo_1(Request $request)
+    {
+        $id = $request->input('id');
+        $demo_Data_1 = \DB::table('demo_test_2')
+        ->where('demo_1','=',$id)
+        ->select('id','demo_1','text')
+        ->get();
+
+        return $demo_Data_1;
+    }
+
+    public function demo_2(Request $request)
+    {
+        $id = $request->input('id');
+        $demo_Data_2 = \DB::table('demo_test_3')
+        ->where('demo_2','=',$id)
+        ->select('id','demo_2','text')
+        ->get();
+
+        return $demo_Data_2;
     }
 }

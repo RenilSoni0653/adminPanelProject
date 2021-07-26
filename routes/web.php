@@ -19,7 +19,6 @@ Route::get('/', function () {
 
 // Routes for home, login, logout, forgot-password.
 Route::get('logout-home','ThemeController@logout');
-Route::get('blank','ThemeController@blank')->name('blank');
 Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
 Route::post('account','ThemeController@store');
 Route::post('home','ThemeController@home')->name('home');
@@ -77,5 +76,10 @@ Route::get('dropdown/edit/{id}','DropdownController@edit')->name('dropdown.edit'
 Route::post('dropdown/update/{id}','DropdownController@update')->name('dropdown.update');
 Route::post('dropdown/store/{id}','DropdownController@store')->name('dropdown.store');
 
+// Routes for blank pages
+Route::get('blank_Page_1','HomeController@blankPage_1')->name('blank_Page_1');
+Route::get('blank_Page_2','HomeController@blankPage_2')->name('blank_Page_2');
 Route::get('test','HomeController@test')->name('test');
 Route::POST('Test','HomeController@test')->name('Test');
+Route::POST('blank_page_1','HomeController@demo_1')->name('blank_page_1');
+Route::POST('blank_page_2','HomeController@demo_2')->name('blank_page_2');
