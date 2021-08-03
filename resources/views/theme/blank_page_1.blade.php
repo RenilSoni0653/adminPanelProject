@@ -11,13 +11,18 @@
                 text-align: center;
             }
         }
+        
+        .error {
+            color: red;
+        }
+
     </style>
     </head>
 
     <body>
         <div class="container mt-4" style="border:1px solid">
             <div class="row pt-4">
-            <form>
+            <!-- <form>
                 @csrf
                 <div class="form-group">
                     <label class="form-label">Enter Name: </label>
@@ -53,20 +58,67 @@
                 <div class="form-group pt-4">
                     <button class="btn btn-primary" id="btn" name="btn">Submit</button>
                 </div>
+                </form> -->
+            </div>
+            <p align="center">HAPPY COFFEE CENTER</p>
+            <label for="selForCoffee" class="form-label">Select Coffee cup size: </label>
+                <select id="selForCoffee" class="form-control">
+                    <option value=""> ------------ Please select ------------ </option>
+                    <option value="100"> Small</option>
+                    <option value="200"> Medium</option>
+                    <option value="300"> Large</option>
+                </select>
+
+            <label class="form-label">Enter Quantity: </label>
+            <form id="FormValidate">
+            @csrf
+                <input type="number" class="form-control" id="qty" name="qty">
             </form>
+
+            <label class="form-label">Total Amount: </label>
+            <input type="text" class="form-control" id="calMoney" readonly>
+            
+            <div class="col pt-4 pb-4">
+                <!-- <button class="btn btn-primary" id="row">Calculate Money</button> -->
             </div>
         </div>
-
-        <div class="container mt-4 mb-4" style="border:1px solid">
-            <div class="row">
-                <p id="demo" style="padding:10px;"></p>
-            </div>
-        </div>
-
     </body>
 </html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#selForCoffee').change(function() {
+            var count = $('#selForCoffee').val();
+            $('#qty').change(function() {
+                var qty = $('#qty').val();
+
+                if(qty < 1 || qty > 5) {
+                    $('#FormValidate').validate({
+                        rules: {
+                            qty : {
+                                min: 1,
+                                max: 5,
+                                required: true
+                            }
+                        },
+                        messages: {
+                            qty: {
+                                required: "Invalid Quantity"
+                            }
+                        }
+                    });
+                    $('#calMoney').val('NaN');
+                } else if(qty >= 1 || qty <= 5) {
+                    var FinalPrice = count * qty;
+                    $('#calMoney').val(FinalPrice);
+                }
+            });
+        });
+    });
+</script>
+
 <script type="text/javascript">
         $.ajaxSetup({
         	headers: { 

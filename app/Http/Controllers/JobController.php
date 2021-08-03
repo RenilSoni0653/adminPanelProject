@@ -36,8 +36,9 @@ class JobController extends Controller
         $email->save();
 
         $details = ['email' => 'srenil0653@gmail.com'];
-        $emailJob = (new SendEmail($details))->delay(Carbon::now()->addMinutes(5));
-        dispatch($emailJob);
+        SendEmail::dispatch($details);
+        // $emailJob = (new SendEmail($details))->delay(Carbon::now()->addMinutes(5));
+        // dispatch($emailJob)->onQueue('processing');
 
         return redirect('home')->with('success','Mail Send Successfully');
     }

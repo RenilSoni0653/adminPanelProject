@@ -99,7 +99,7 @@
                                 </a>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="{{ route('Forgot-password') }}">Forgot Password?</a>
                             </div>
                             <div class="text-center">
                                 <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>

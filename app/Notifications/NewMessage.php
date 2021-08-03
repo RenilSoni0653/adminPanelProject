@@ -6,9 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\User;
 
-class UserFollowed extends Notification
+class NewMessage extends Notification
 {
+    public $fromUser;
     use Queueable;
 
     /**
@@ -16,9 +18,9 @@ class UserFollowed extends Notification
      *
      * @return void
      */
-    public function __construct(User $follower)
+    public function __construct(User $user)
     {
-        $this->follower = $follower;
+        $this->fromUser = $user;
     }
 
     /**
@@ -29,15 +31,7 @@ class UserFollowed extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
-    }
-
-    public function toDatabase($notifiable)
-    {
-        return [
-            'follower_id' => $this->follower->id,
-            'follower_name' => $this->follower->name,
-        ];
+        return ['mail'];
     }
 
     /**
