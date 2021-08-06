@@ -30,15 +30,16 @@ class SendEmail implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     */
+    */
     public function handle()
     {
-        // $emails = new EmailForQueuing();
-        $data = $this->email['description'];
+        $data = array('description' => $this->email['description']);
+        $emails = new EmailForQueuing($data);
 
-        Mail::send('theme.Email.emailnotification', [$data], function($message) {
+        Mail::send('theme.Email.emailNotification', $data, function($message) {
             $message->to($this->email['to_email'], 'Test');
             $message->subject($this->email['subject']);
+            $message->setBody($this->email['description'], 'text/html');
             $message->from($this->email['from_email'], $this->email['name']);
         });
     }

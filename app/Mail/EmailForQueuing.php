@@ -30,9 +30,10 @@ class EmailForQueuing extends Mailable
     public function build()
     {
         $description = $this->details;
-        
+
         return $this->from('srenil0653@gmail.com','Mailtrap')
         ->subject('Test')
-        ->view('theme.Email.emailNotification', compact('description'));
+        ->setBody($description,'text/html')
+        ->view('theme.Email.emailNotification');
     }
 }

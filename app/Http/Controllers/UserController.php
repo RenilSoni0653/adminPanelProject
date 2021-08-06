@@ -56,7 +56,7 @@ class UserController extends Controller
         $query = \DB::table('password_resets')->where('token',$token)->select('email', 'token')->get();
         
         if(count($query) == 0) {
-            return view('theme.forgot-password');
+            abort(404, 'Page not found');
         } else {
             if($query[0]->token == $token)
             {
