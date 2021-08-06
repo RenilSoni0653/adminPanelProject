@@ -19,6 +19,15 @@ Route::get('/', function () {
 
 // Routes for home, login, logout, forgot-password.
 Route::post('home','ThemeController@home')->name('home');
+Route::get('logout-home','ThemeController@logout')->name('logout_user');
+Route::post('account','ThemeController@store');
+Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
+
+// Routes for forgot password
+Route::get('password/change','UserController@forgotPass')->name('user.forgotPassword');
+Route::get('password/{token}/reset-password/{email}','UserController@verifyPassword')->name('user.verifyToken');
+Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');
+
 Auth::routes();
 
 // Routes for emails.
@@ -27,10 +36,6 @@ Route::post('email/{id}','EmailController@enqueue')->name('emails.store');
 
 // Routes for tables.
 Route::middleware('auth')->group(function() {
-    Route::get('logout-home','ThemeController@logout')->name('logout_user');
-    Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
-    Route::post('account','ThemeController@store');
-
     Route::get('tables/index','TableController@index')->name('tables.index')->middleware('auth');
     Route::get('tables/create','TableController@create')->name('tables.create');
     Route::post('tables/store','TableController@store')->name('tables.store');
@@ -84,11 +89,6 @@ Route::middleware('auth')->group(function() {
     Route::POST('Test','HomeController@test')->name('Test');
     Route::POST('blank_page_1','HomeController@demo_1')->name('blank_page_1');
     Route::POST('blank_page_2','HomeController@demo_2')->name('blank_page_2');
-
-    // Routes for forgot password
-    Route::get('password/change','UserController@forgotPass')->name('user.forgotPassword');
-    Route::get('password/{token}/reset-password/{email}','UserController@verifyPassword')->name('user.verifyToken');
-    Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');
 
     // Routes for Notification
     Route::get('notify/index','NotificationController@index')->name('user.notify');
