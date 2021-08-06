@@ -23,7 +23,7 @@
                                 } else {
                                     $('#errEmail').html('');
                                 }
-                            },
+                            }
                         }, address: {
                             required: true,
                             minlength: 8

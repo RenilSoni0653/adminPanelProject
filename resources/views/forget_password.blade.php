@@ -1,1 +1,1 @@
-<a href="http://localhost:8000/password/{{$token}}/reset-password/{{$email}}">Click here</a>
+<a href="http://localhost:8000/password/{{$token}}/reset-password">Click here</a>

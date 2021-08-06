@@ -10,15 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class EmailForQueuing extends Mailable
 {
     use Queueable, SerializesModels;
+    protected $details;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -28,8 +29,10 @@ class EmailForQueuing extends Mailable
      */
     public function build()
     {
-        // return $this->from('srenil0653@gmail.com','Mailtrap')
-        // ->subject('Test')
-        // ->view('theme.email.sendmail');
+        $description = $this->details;
+        
+        return $this->from('srenil0653@gmail.com','Mailtrap')
+        ->subject('Test')
+        ->view('theme.Email.emailNotification', compact('description'));
     }
 }

@@ -17,17 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Routes for home, login, logout, forgot-password.
-Route::post('home','ThemeController@home')->name('home');
-Route::get('logout-home','ThemeController@logout')->name('logout_user');
-Route::post('account','ThemeController@store');
-Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
-
 // Routes for forgot password
+Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
 Route::get('password/change','UserController@forgotPass')->name('user.forgotPassword');
-Route::get('password/{token}/reset-password/{email}','UserController@verifyPassword')->name('user.verifyToken');
+Route::get('password/{token}/reset-password','UserController@verifyPassword')->name('user.verifyToken');
 Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');
 
+Route::post('home','ThemeController@home')->name('home');
 Auth::routes();
 
 // Routes for emails.
@@ -36,6 +32,10 @@ Route::post('email/{id}','EmailController@enqueue')->name('emails.store');
 
 // Routes for tables.
 Route::middleware('auth')->group(function() {
+    // Routes for home, login, logout, forgot-password.
+    Route::get('logout-home','ThemeController@logout')->name('logout_user');
+    Route::post('account','ThemeController@store');
+
     Route::get('tables/index','TableController@index')->name('tables.index')->middleware('auth');
     Route::get('tables/create','TableController@create')->name('tables.create');
     Route::post('tables/store','TableController@store')->name('tables.store');

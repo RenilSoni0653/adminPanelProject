@@ -71,8 +71,7 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password" name="pwd">
-                                                <div class="error"></div>
-                                                @error('password')
+                                                @error('pwd')
                                                     <div class="alert alert-danger">
                                                         {{ $message }}
                                                     </div>
@@ -120,9 +119,8 @@
             $(document).ready(function() {
                 $('.user').validate({
                     rules: {
-                        email : {
-                            required: true,
-                            email: true
+                        email: {
+                            required: true
                         },
                         pwd : {
                             required: true,

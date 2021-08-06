@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Mail;
 use DB;
+use Str;
 
 class UserController extends Controller
 {
@@ -24,11 +25,18 @@ class UserController extends Controller
         [
             'email.required' => 'Enter email-id correctly!!'
         ]);
-        $query = DB::table('users')->where('email','=',$request->input('email'))->get();
+        $email = DB::table('users')->where('email','=',$request->input('email'))->get();
+        $token_id = Str::random(18);
+        
+        
+        $query = \DB::table('password_resets')->insert([
+            'email' => $request->input('email'),
+            'token' => $token_id
+        ]);
 
-        if(count($query) > 0)
+        if(count($email) > 0)
         {
-            Mail::send(['text' => 'forget_password'], ['token' => $request->input('_token'), 'email' => $request->input('email')],
+            Mail::send(['text' => 'forget_password'], ['token' => $token_id],
             function($message) use($request) {
                     $message->to($request->email);
                     $message->subject('Forgot-password link');
@@ -43,17 +51,23 @@ class UserController extends Controller
         return back()->with('success','Reset password link send successfully');
     }
 
-    public function verifyPassword($token, $email, Request $request)
+    public function verifyPassword($token, Request $request)
     {
-        if($request->token == $token)
-        {
-            return view('resetPassword',compact('email'));
-        }
-        else
-        {
-            return view('Login');
-        }
+        $query = \DB::table('password_resets')->where('token',$token)->select('email', 'token')->get();
         
+        if(count($query) == 0) {
+            return view('theme.forgot-password');
+        } else {
+            if($query[0]->token == $token)
+            {
+                $email = $query[0]->email;
+                return view('resetPassword', compact('email', 'token'));
+            }
+            else
+            {
+                return view('Login');
+            }
+        }   
     }
 
     public function updatePassword(Request $request)
@@ -72,6 +86,7 @@ class UserController extends Controller
         
         if($request->input('password') == $request->input('repassword'))
         {
+            $Del_query = \DB::table('password_resets')->where('token',$request->Token)->delete();
             $query = $data->update([
                 'password' => \Hash::make($request->input('password'))
             ]);
@@ -81,7 +96,7 @@ class UserController extends Controller
             return back()->with('error',"Password doesn't match");
         }
 
-        return back()->with('success','Password updated successfully');
+        return redirect('login')->with('success','Password updated successfully');
     }
 
     // public function follow(User $user)

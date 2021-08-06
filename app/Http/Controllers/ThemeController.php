@@ -26,6 +26,10 @@ class ThemeController extends Controller
         $data = $request->validate([
             'email' => 'required|email',
             'pwd' => 'required|min:5'
+        ],
+        [
+            'email.required' => 'Email field is required',
+            'pwd.required' => 'Password field is required'
         ]);
 
         if(!$data)

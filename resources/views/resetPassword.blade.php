@@ -56,6 +56,7 @@
                                             Reset
                                         </button>
                                         <input type="hidden" value="{{$email}}" name="email">
+                                        <input type="hidden" value="{{$token}}" name="Token">
                                         </form>
                                         <hr>
                                         <a href="{{ asset('theme/index.html') }}" class="btn btn-google btn-user btn-block">

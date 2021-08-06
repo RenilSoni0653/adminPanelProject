@@ -132,7 +132,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Actions</h6>
             <a class="collapse-item" href="{{ url('dropdown/create') }}">Create data</a>
-            <a class="collapse-item" href="{{ url('dropdown/showList/'.auth()->user()->id) }}">Show lists</a>
+            
         </div>
     </div>
 </li>
