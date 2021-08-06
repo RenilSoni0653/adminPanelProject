@@ -8,7 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <style>
+        #email_error-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;
+        }
+        #email_error {
+            width: 340px;            
+        }
+    </style>
     <title>SB Admin 2 - Forgot Password</title>
 
     <!-- Custom fonts for this template-->
@@ -56,13 +66,17 @@
                                         <p class="mb-4">We get it, stuff happens. Just enter your email address below
                                             and we'll send you a link to reset your password!</p>
                                     </div>
-                                    <form class="user" action="{{ route('user.forgotPassword') }}">
+                                    <form class="user" id="forgot_password" action="{{ route('user.forgotPassword') }}">
                                     @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp" name="email"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" id="email_error" class="form-control form-control-user" placeholder="Enter email-id.." name="email">
+                                            @error('email')
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror                                            
                                         </div>
+                                        <div class="error_email"></div>
                                         <button class="btn btn-primary btn-user btn-block">
                                             Reset Password
                                         </button>
@@ -95,7 +109,26 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{!! asset('theme/js/sb-admin-2.min.js') !!}"></script>
-
+    
+    <!-- Forgot-password jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.user').validate({
+                rules: {
+                    email : {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required : 'Enter valid email-id!!'
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

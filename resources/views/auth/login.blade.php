@@ -1,6 +1,31 @@
 @extends('layouts.theme_app')
 
 @section('content')
+<style>
+    #exampleInputEmail-error {
+        padding-top: 8px;
+        padding-left: 20px;
+        font-size: 18px;
+    }
+
+    #exampleInputPassword-error {
+        padding-top: 8px;
+        padding-left: 20px;
+        font-size: 18px;
+    }
+
+    #exampleInputEmail {
+        width: 340px;
+    }
+
+    #exampleInputPassword {
+        width: 340px;
+    }
+
+    .error {
+        color: red;
+    }
+</style>
 <body class="bg-gradient-primary">
 
     <div class="container">
@@ -36,6 +61,7 @@
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address..." name="email">
+                                                <div class="error"></div>
                                                 @error('email')
                                                     <div class="alert alert-danger">
                                                         {{ $message }}
@@ -44,9 +70,10 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password" name="password">
+                                                id="exampleInputPassword" placeholder="Password" name="pwd">
+                                                <div class="error"></div>
                                                 @error('password')
-                                                <div class="alert alert-danger">
+                                                    <div class="alert alert-danger">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -54,8 +81,7 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck">Remember Me</label>
                                             </div>
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block">
@@ -87,5 +113,30 @@
         </div>
 
     </div>
-
+    
+    <!-- Register jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.user').validate({
+                    rules: {
+                        email : {
+                            required: true,
+                            email: true
+                        },
+                        pwd : {
+                            required: true,
+                        }
+                    },
+                    messages: {
+                        email : {
+                            required: "Enter valid email-id"
+                        },
+                        pwd : {
+                            required: "Enter corerct password"
+                        }
+                    }
+                });
+            });
+    </script>
 @endsection('content')

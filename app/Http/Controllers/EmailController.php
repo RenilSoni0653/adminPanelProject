@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\SendEmail;
 use App\User;
 use App\Email;
+use Carbon\Carbon;
 use Mail;
 
 class EmailController extends Controller
@@ -14,31 +16,36 @@ class EmailController extends Controller
         return view('theme.email.sendmail');
     }
 
-    public function basic_mail(Request $request,$id)
+    public function enqueue(Request $request)
     {
-        //Storing data into database
-        $user = User::find($id);
+        $description = strip_tags(htmlspecialchars_decode($request->input('description')));
+        $user = \App\User::find(auth()->user()->id);
+
+        $request->validate([
+            'from_email' => 'required|email',
+            'to_email' => 'required|email',
+            'subject' => 'required|string',
+            'description' => 'required|string'
+        ],
+        [
+            'from_email.required' => 'From email is required',
+            'to_email.required' => 'To email is required',
+            'subject.required' => 'Subject is required',
+            'description.required' => 'Description is required'
+        ]);
 
         $email = new Email;
         $email->user_id = auth()->user()->id;
         $email->name = $user->fname;
-        $email->from_email = $data['from_email'];
-        $email->to_email = $data['to_email'];
-        $email->description = $data['description'];
+        $email->subject = $request->input('subject');
+        $email->from_email = $request->input('from_email');
+        $email->to_email = $request->input('to_email');
+        $email->description = $description;
         $email->save();
 
-        // Sending mail
-        $from_email = Request()->input('from_email');
-        $to_email = Request()->input('to_email');
-        $subject = Request()->input('subject');
-        $description = Request()->input('description');
-        $data = array('name' => $user->fname,'body' => 'Test mail');
+        $emailJob = (new SendEmail($email));//->delay(Carbon::now()->addMinutes(1));
+        dispatch($emailJob);
 
-        Mail::send(['text' => 'theme.email.emailNotification'],$data, function($message) use ($user, $from_email, $to_email, $subject) {
-            $message->to($to_email, 'Test')->subject($subject);
-            $message->from($from_email, $user->fname);
-        });
-
-        return redirect('home')->with('message','Email send successfully');
+        return redirect('home')->with('success','Mail Send Successfully');
     }
 }

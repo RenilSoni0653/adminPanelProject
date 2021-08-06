@@ -18,7 +18,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Reset Your Password</h1>
                                     </div>
                                     @if(session()->has('success'))
                                     <div class="alert alert-success">
@@ -34,7 +34,7 @@
                                     @csrf
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="passwordHelp"
+                                                id="exampleInputPassword" aria-describedby="passwordHelp"
                                                 placeholder="Enter new password" name="password">
                                                 @error('password')
                                                     <div class="alert alert-danger">
@@ -45,6 +45,7 @@
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="exampleInputRePassword" placeholder="Enter confirm password" name="repassword">
+                                                <div id="error"></div>
                                                 @error('repassword')
                                                 <div class="alert alert-danger">
                                                         {{ $message }}
@@ -68,11 +69,64 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
+    <style>
+    #exampleInputPassword-error {
+        padding-top: 8px;
+        padding-left: 20px;
+        font-size: 18px;
+        color: red;        
+    }
+    #exampleInputPassword {
+        width: 340px;        
+    }
+    #exampleInputRePassword-error {
+        padding-top: 8px;
+        padding-left: 20px;
+        font-size: 18px;
+        color: red;        
+    }
+    #exampleInputRePassword {
+        width: 340px;        
+    }
+    #error {
+        padding-left: 20px;
+        color: red;
+    }
+    </style>
+    <!-- Forgot-password jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('.user').validate({
+                rules: {
+                    password : {
+                        required: true,
+                    },
+                    repassword : {
+                        function() {
+                            $.password = $('#exampleInputPassword').val();
+                            $.rePassword = $('#exampleInputRePassword').val();
 
+                            if($.password != $.rePassword) {
+                                $('#error').html("Password doesn't match!!");
+                            } else {
+                                $('#error').html('');
+                            }
+                        }
+                    }
+                },
+                messages: {
+                    password: {
+                        required : 'Enter correct password'
+                    },
+                    repassword: {
+                        required : "Enter password doesn't match"
+                    }
+                }
+            });
+        });
+    </script>
 @endsection('content')

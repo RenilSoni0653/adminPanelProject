@@ -18,6 +18,7 @@ class CreateEmailsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name');
+            $table->string('subject');
             $table->string('from_email');
             $table->string('to_email');
             $table->text('description');

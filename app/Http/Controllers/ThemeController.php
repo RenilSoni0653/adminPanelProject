@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Table;
+use Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 class ThemeController extends Controller
 {
@@ -24,7 +25,7 @@ class ThemeController extends Controller
     {
         $data = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6'
+            'pwd' => 'required|min:5'
         ]);
 
         if(!$data)
@@ -35,7 +36,7 @@ class ThemeController extends Controller
         {
             $userData = array(
                 'email' => $request->input('email'),
-                'password' => $request->input('password')
+                'password' => $request->input('pwd')
             );
 
             if(Auth::attempt($userData))
@@ -51,32 +52,40 @@ class ThemeController extends Controller
 
     public function logout()
     {
-        return view('theme.login');
+        Auth::logout();
+        return redirect('/');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'first-name' => 'required|string|max:255',
-            'last-name' => 'required|string|max:255',
-            'email' => 'required|string|email',
-            'password' => 'required|min:6',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'password' => 'required|min:5'
+        ],
+        [
+            'first_name.required' => 'First-name field is required',
+            'last_name.required' => 'Last-name field is required',
+            'email.required' => 'Email field is required',
+            'password.required' => 'Password field is required'
         ]);
 
+        $query = \DB::table('users')->where('email','=',$request->input('email'))->pluck('email');
         $user = new User;
-        $user->fname = $request->input('first-name');
-        $user->lname = $request->input('last-name');
+        $user->fname = $request->input('first_name');
+        $user->lname = $request->input('last_name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        
-        if($request->input('password') == $request->input('re-password'))
+
+        if($query[0] == $request->email || $request->input('password') == $request->input('re_password'))
         {
             $user->save();
             return redirect('login')->with('success','User registered successfully');
         }
         else
         {
-            return redirect('register')->with('message','Enter password again');
+            return redirect('register')->with('message','Enter correct credentials again');
         }
     }
 

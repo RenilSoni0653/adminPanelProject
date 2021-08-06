@@ -10,6 +10,64 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Register</title>
+    <style>
+        #exampleFirstName-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;        
+        }
+        
+        #exampleFirstName {
+            width: 100%
+        }
+
+        #exampleLastName-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;        
+        }
+
+        #exampleLastName {
+            width: 100%
+        }
+        
+        #exampleInputEmail-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;        
+        }
+
+        #exampleInputEmail {
+            width: 100%;        
+        }
+        
+        #exampleInputPassword-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;        
+        }
+
+        #exampleInputPassword {
+            width: 100%;        
+        }
+        
+        #exampleRepeatPassword-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;        
+        }
+        #re_password_error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;
+        }
+    </style>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('theme/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,7 +77,6 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('theme/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
 </head>
 
 <body class="bg-gradient-primary">
@@ -40,22 +97,23 @@
                                 @enderror
                             </div>
 
-                            <form class="user" method="POST" action="{{ url('account') }}">
+                            <form class="user" id="register_user" method="POST" action="{{ url('account') }}">
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" name="first-name" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" name="first_name" aria-describedby="firstNameHelp" class="form-control form-control-user" id="exampleFirstName"
                                             placeholder="First Name">
-                                                @error('first-name')
-                                                    <div class="alert alert-danger">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
+                                            @error('first_name')
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                     </div>
+                                    
                                     <div class="col-sm-6">
-                                        <input type="text" name="last-name" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" name="last_name" class="form-control form-control-user" id="exampleLastName"
                                             placeholder="Last Name">
-                                            @error('last-name')
+                                            @error('last_name')
                                                     <div class="alert alert-danger">
                                                         {{ $message }}
                                                     </div>
@@ -82,8 +140,9 @@
                                             @enderror
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" name="re-password" class="form-control form-control-user"
+                                        <input type="password" name="re_password" class="form-control form-control-user"
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            <div id="re_password_error"></div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-user btn-block">
@@ -122,6 +181,55 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('theme/js/sb-admin-2.min.js') }}"></script>
 
+    <!-- Register jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.user').validate({
+                    rules: {
+                        first_name : {
+                            required: true
+                        },
+                        last_name : {
+                            required: true
+                        },
+                        email : {
+                            required: true,
+                            email: true
+                        },
+                        password : {
+                            required: true
+                        },
+                        re_password: {
+                            function() {
+                                $.password = $('#exampleInputPassword').val();
+                                $.rePassword = $('#exampleRepeatPassword').val();
+
+                                if($.password != $.rePassword) {
+                                    $('#re_password_error').html("Password doesn't match!!");
+                                } else {
+                                    $('#re_password_error').html('');
+                                }
+                            }                            
+                        }
+                    },
+                    messages: {
+                        first_name : {
+                            required: "Enter first name correctly!!"
+                        },
+                        last_name : {
+                            required: "Enter last name correctly!!"
+                        },
+                        email : {
+                            required: "Enter valid email-id!!"
+                        },
+                        password : {
+                            required: "Enter correct password!!"
+                        }
+                    }
+                });
+            });
+    </script>
 </body>
 
 </html>

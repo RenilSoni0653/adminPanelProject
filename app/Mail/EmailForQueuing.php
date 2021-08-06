@@ -28,8 +28,8 @@ class EmailForQueuing extends Mailable
      */
     public function build()
     {
-        return $this->from('srenil0653@gmail.com','Mailtrap')
-        ->subject('Test')
-        ->view('theme.email.sendmail');
+        // return $this->from('srenil0653@gmail.com','Mailtrap')
+        // ->subject('Test')
+        // ->view('theme.email.sendmail');
     }
 }

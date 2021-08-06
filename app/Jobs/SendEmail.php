@@ -8,21 +8,22 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\EmailForQueuing;
+use Carbon\Carbon;
 use Mail;
 
 class SendEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $details;
+    protected $email;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($email)
     {
-        $this->details = $details;
+        $this->email = $email;
     }
 
     /**
@@ -32,20 +33,13 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        $description = strip_tags(htmlspecialchars_decode(Request()->input('description')));
-        $email = new EmailForQueuing();
+        // $emails = new EmailForQueuing();
+        $data = new EmailForQueuing();
 
-        // $user = \App\User::find(auth()->user()->id);
-        // $from_email = Request()->input('from_email');
-        // $to_email = Request()->input('to_email');
-        // $subject = Request()->input('subject');
-        // $data = array('name' => $user->fname,'body' => 'Test mail');
-
-        // Mail::send(['text' => 'theme.email.emailnotification'],$data, function($message) use ($user, $from_email, $to_email, $subject) {
-        //     $message->to($to_email, 'Test')->subject($subject);
-        //     $message->from($from_email, $user->fname);
-        // });
-
-        Mail::to($this->details['from_email'])->send($email);
+        Mail::send('theme.Email.emailnotification', [$data], function($message) {
+            $message->to($this->email['to_email'], 'Test');
+            $message->subject($this->email['subject']);
+            $message->from($this->email['from_email'], $this->email['name']);
+        });
     }
 }
