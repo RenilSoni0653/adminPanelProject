@@ -9,14 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "cornford/googlmapper": "3.*",
         "fakerphp/faker": "^1.14",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+        "intervention/image": "^2.6",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^2.5",
-        "cornford/googlmapper": "3.*"        
+        "laravel/ui": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

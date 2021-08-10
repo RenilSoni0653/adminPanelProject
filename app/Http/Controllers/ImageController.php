@@ -21,8 +21,13 @@ class ImageController extends Controller
 
     public function uploadFile(Request $request)  
     {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,jpg,svg|max:2048'
+        ]);
+
         $image = $request->file('file');
         $imageName = $image->getClientOriginalName(); // This will give you extension of file.
+        // $imgResize = Image::make($imageName)->fit(300, 300)->save();
         $image->move(public_path('images'),$imageName);
 
         $imageUpload = new Image();

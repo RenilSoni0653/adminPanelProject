@@ -31,7 +31,7 @@
                         </div>
                         @endif
                         
-                        <form action="{{ url('images/upload/store') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                        <form action="{{ url('images/upload/store') }}" method="POST" enctype="multipart/form-data" class="dropzone" name="dropzone" id="dropzone">
                             @csrf
                             <div class="card-body"">
                                 <div class="table-responsive">

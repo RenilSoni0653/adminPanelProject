@@ -53,7 +53,7 @@
                                             <tr>
                                                 <td>{{ $i = $i + 1 }}</td>
                                                 <td>
-                                                    <img src="{{ $allData->name }}" width="615px" height="*px">
+                                                    <img src="{{ $allData->name }}" width="615px">
                                                 </td>
                                                 <td>
                                                     <form method="POST" action="{{ url('images/'.$allData->id) }}">

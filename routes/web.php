@@ -29,11 +29,11 @@ Auth::routes();
 // Routes for emails.
 Route::get('email/sendmail','EmailController@sendmail')->name('email.sendmail');
 Route::post('email/{id}','EmailController@enqueue')->name('emails.store');
+Route::get('logout-home','ThemeController@logout')->name('logout_user');
 
 // Routes for tables.
 Route::middleware('auth')->group(function() {
     // Routes for home, login, logout, forgot-password.
-    Route::get('logout-home','ThemeController@logout')->name('logout_user');
     Route::post('account','ThemeController@store');
 
     Route::get('tables/index','TableController@index')->name('tables.index')->middleware('auth');
