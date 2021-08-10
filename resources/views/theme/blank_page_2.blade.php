@@ -44,7 +44,7 @@
                                     if($.cpass != $.pass) {
                                         $('.errCPass').html("<span style='color:red'>Password doesn't match</span>");   
                                     } else {
-                                        $('.errCPass').html("<span style='color:red'>Credentials are correct</span>");
+                                        $('.errCPass').html('');
                                     }
                                 }
                             }
@@ -78,10 +78,10 @@
     </head>
 
     <body>
-        <div class="container pt-2 m-4">
+        <div class="container pt-2 mt-4 mb-4 ml-4">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="" id="formValidation">
+                    <form method="POST" id="formValidation">
                         <div class="form-group">
                             <label class="form-label mt-2 ml-3" for="name">Enter First - Name: </label>
                             <input type="text" class="form-control" name="fname" id="fname">
@@ -142,6 +142,7 @@
         </div>
     </body>
 </html>
+
 <!-- <script type="text/javascript">
             var divs = new Array();
             divs[0] = 'errFname';

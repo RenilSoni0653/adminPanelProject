@@ -43,7 +43,8 @@ class EmailController extends Controller
         $email->description = $description;
         $email->save();
 
-        $emailJob = (new SendEmail($email));//->delay(Carbon::now()->addMinutes(1));
+        // $emailJob = (new SendEmail($email))->delay(Carbon::now()->addMinutes(1));
+        $emailJob = (new SendEmail($email));
         dispatch($emailJob);
 
         return redirect('home')->with('success','Mail Send Successfully');

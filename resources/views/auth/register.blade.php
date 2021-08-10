@@ -158,9 +158,6 @@
                                 </a>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{ route('Forgot-password') }}">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
                                 <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
                             </div>
                         </div>
@@ -206,7 +203,7 @@
                                 $.rePassword = $('#exampleRepeatPassword').val();
 
                                 if($.password != $.rePassword) {
-                                    $('#re_password_error').html("Password doesn't match!!");
+                                    $('#re_password_error').html("Password doesn't match");
                                 } else {
                                     $('#re_password_error').html('');
                                 }
@@ -215,16 +212,16 @@
                     },
                     messages: {
                         first_name : {
-                            required: "Enter first name correctly!!"
+                            required: "First Name is missing"
                         },
                         last_name : {
-                            required: "Enter last name correctly!!"
+                            required: "Last Name is missing"
                         },
                         email : {
-                            required: "Enter valid email-id!!"
+                            required: "Email id is missing"
                         },
                         password : {
-                            required: "Enter correct password!!"
+                            required: "Password is missing"
                         }
                     }
                 });

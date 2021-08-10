@@ -116,7 +116,7 @@
     <div id="collapsePageImage" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Actions</h6>
-            <a class="collapse-item" href="{{ url('images/uploadImage') }}">Upload</a>
+            <a class="collapse-item" href="{{ route('images.index') }}">Upload</a>
         </div>
     </div>
 </li>

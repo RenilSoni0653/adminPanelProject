@@ -112,7 +112,7 @@
                             $.rePassword = $('#exampleInputRePassword').val();
 
                             if($.password != $.rePassword) {
-                                $('#error').html("Password doesn't match!!");
+                                $('#error').html("Password doesn't match");
                             } else {
                                 $('#error').html('');
                             }
@@ -121,10 +121,7 @@
                 },
                 messages: {
                     password: {
-                        required : 'Enter correct password'
-                    },
-                    repassword: {
-                        required : "Enter password doesn't match"
+                        required : 'Password is missing'
                     }
                 }
             });

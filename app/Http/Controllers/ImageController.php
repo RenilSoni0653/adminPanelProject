@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Image;
+use Illuminate\Support\Facades\DB;
 
 class ImageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('theme.images.index');
+        $images = DB::table('Images')->orderBy('id','DESC')->get();
+        return view('theme.images.index', compact('images'));
+    }
+
+    public function uploadImage()
+    {
+        return view('theme.images.uploadImage');
     }
 
     public function uploadFile(Request $request)  
@@ -23,5 +30,34 @@ class ImageController extends Controller
         $imageUpload->save();
 
         return response()->json(['success' => $imageName]);
-    } 
+    }
+
+    public function edit($id)
+    {
+        $images = DB::table('images')->where('id',$id)->first();
+        
+        return view('theme.Images.edit', compact('images'));
+    }
+
+    public function update($id, Request $request)
+    {
+        dd($request);
+        $query = DB::table('images')
+        ->where('id',$request->id)
+        ->update([
+            'name' => $request->name
+        ]);
+
+        return redirect('images/index')->with('success', 'Image uploaded successfully');
+    }
+
+    public function destroy($id)
+    {
+        $query = DB::table('images')->where('id', $id)->first();
+        $id = Image::find($query->id);
+
+        $id->delete();
+
+        return redirect('images/index')->with('success','Image deleted successfully');
+    }
 }

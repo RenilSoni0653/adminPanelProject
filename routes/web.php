@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +16,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Routes for forgot password
-Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
-Route::get('password/change','UserController@forgotPass')->name('user.forgotPassword');
-Route::get('password/{token}/reset-password','UserController@verifyPassword')->name('user.verifyToken');
-Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');
-
 Route::post('home','ThemeController@home')->name('home');
+
+// By default routes for forgot-password.
+Route::get('Forgot-password','Auth\ForgotPasswordController@showLinkRequestForm')->name('Forgot-password');
+Route::post('password/change', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('user.forgotPassword');
+Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('user.verifyToken');
+Route::post('password/reset', 'ResetPasswordController@reset')->name('updatePassword');
+
 Auth::routes();
 
 // Routes for emails.
@@ -70,8 +70,12 @@ Route::middleware('auth')->group(function() {
     Route::get('maps','MapsController@index')->name('maps.index');
 
     // Routes for Image Upload.
-    Route::get('images/uploadImage','ImageController@index')->name('images.uplaodImage');
+    Route::get('images/index', 'ImageController@index')->name('images.index');
+    Route::get('images/uploadImage','ImageController@uploadImage')->name('images.uploadImage');
+    Route::get('images/{id}/edit', 'ImageController@edit')->name('images.edit');
+    Route::post('images/{id}/update', 'ImageController@update')->name('images.update');
     Route::post('images/upload/store', 'ImageController@uploadFile')->name('images.store');
+    Route::delete('images/{id}','ImageController@destroy')->name('image.destroy');
 
     // Routes for Dependent dropdown
     Route::get('dropdown/getStates','DropdownController@getStates')->name('dropdown.getStates');
@@ -93,3 +97,9 @@ Route::middleware('auth')->group(function() {
     // Routes for Notification
     Route::get('notify/index','NotificationController@index')->name('user.notify');
 });
+
+// Routes for forgot password (Custom)
+// Route::get('Forgot-password','ThemeController@forgotPassword')->name('Forgot-password');
+// Route::get('password/change','UserController@forgotPass')->name('user.forgotPassword');
+// Route::get('password/{token}/reset-password','UserController@verifyPassword')->name('user.verifyToken');
+// Route::post('updatePassword','UserController@updatePassword')->name('updatePassword');

@@ -26,7 +26,7 @@
                         <!-- -->
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('tables.update') }}">
+                            <form id="formValidate" method="POST" action="{{ route('tables.update') }}">
                             @csrf
                             <!-- User Form -->    
                             <label>Name : </label>
@@ -125,4 +125,115 @@
 
     <!-- Page level custom scripts -->
     <script src="{!! asset('theme/js/demo/datatables-demo.js') !!}"></script>
+
+<!-- jQuery Validations -->
+<style>
+        #exampleName {
+            width: 100%;
+            font-size: 20px;
+        }
+        #exampleName-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+        #examplePosition {
+            width: 100%;
+            font-size: 20px;
+        }
+        #examplePosition-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+        #exampleOffice {
+            width: 100%;
+            font-size: 20px;
+        }
+        #exampleOffice-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+        #exampleAge {
+            width: 100%;
+            font-size: 20px;
+        }
+        #exampleAge-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+        #exampleDate {
+            width: 100%;
+            font-size: 20px;
+        }
+        #exampleDate-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+        #exampleSalary {
+            width: 100%;
+            font-size: 20px;
+        }
+        #exampleSalary-error {
+            padding-top: 8px;
+            padding-left: 5px;
+            font-size: 16px;
+            color: red;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#formValidate').validate({
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    position: {
+                        required: true
+                    },
+                    office: {
+                        required: true
+                    },
+                    age: {
+                        required: true
+                    },
+                    start_date: {
+                        required: true
+                    },
+                    salary: {
+                        required: true
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "Name input field is missing"
+                    },
+                    position: {
+                        required: "Position input field is missing"
+                    },
+                    office: {
+                        required: "Office input field is missing"
+                    },
+                    age: {
+                        required: "Age input field is missing"
+                    },
+                    start_date: {
+                        required: "Start date input field is missing"
+                    },
+                    salary: {
+                        required: "Salary input field is missing"
+                    }
+                }
+            });            
+        });
+    </script>    
 @endsection

@@ -123,7 +123,7 @@
                 },
                 messages: {
                     email: {
-                        required : 'Enter valid email-id!!'
+                        required : 'Email id is missing'
                     }
                 }
             });

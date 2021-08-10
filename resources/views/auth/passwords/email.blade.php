@@ -1,47 +1,134 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<head>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <style>
+        #email_error-error {
+            padding-top: 8px;
+            padding-left: 20px;
+            font-size: 18px;
+            color: red;
+        }
+        #email_error {
+            width: 340px;            
+        }
+    </style>
+    <title>SB Admin 2 - Forgot Password</title>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+    <!-- Custom fonts for this template-->
+    <link href="{!! asset('theme/vendor/fontawesome-free/css/all.min.css') !!}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <!-- Custom styles for this template-->
+    <link href="{!! asset('theme/css/sb-admin-2.min.css') !!}" rel="stylesheet">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+</head>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+<body class="bg-gradient-primary">
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            @error('success')
+                <div class="alert alert-success">
+                    {{ $message }}
                 </div>
+            @enderror
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
+                                        @if(session()->has('success'))
+                                        <div class="alert alert-success">
+                                            {{ session()->get('success') }}
+                                        </div>
+                                        @elseif(session()->has('error'))
+                                        <div class="alert alert-danger">
+                                                {{ session()->get('error') }}
+                                            </div>
+                                        @endif
+                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
+                                            and we'll send you a link to reset your password!</p>
+                                    </div>
+                                    <form class="user" id="forgot_password" method="POST" action="{{ route('user.forgotPassword') }}">
+                                    @csrf
+                                        <div class="form-group">
+                                            <input type="email" id="email_error" class="form-control form-control-user" placeholder="Enter email-id.." name="email">
+                                            @error('email')
+                                                <div class="alert alert-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror                                            
+                                        </div>
+                                        <div class="error_email"></div>
+                                        <button class="btn btn-primary btn-user btn-block">
+                                            Reset Password
+                                        </button>
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
+
     </div>
-</div>
-@endsection
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{!! asset('theme/vendor/jquery/jquery.min.js') !!}"></script>
+    <script src="{!! asset('theme/vendor/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{!! asset('theme/vendor/jquery-easing/jquery.easing.min.js') !!}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{!! asset('theme/js/sb-admin-2.min.js') !!}"></script>
+    
+    <!-- Forgot-password jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.user').validate({
+                rules: {
+                    email : {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    email: {
+                        required : 'Email id is missing'
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -74,7 +74,7 @@
                                                             <form method="POST" action="{{ url('tables/'.$allData->id) }}">
                                                             @csrf()
                                                             @method('DELETE')
-                                                            <button class="btn btn-primary" onClick="return confirm('Are you sure?')">Trash</button>
+                                                            <button class="btn btn-primary" onClick="return confirm('Are you sure do you want to delete?')">Trash</button>
                                                             </form>
                                                     </center>
                                                 </td>

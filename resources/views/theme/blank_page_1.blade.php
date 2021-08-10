@@ -21,66 +21,30 @@
 
     <body>
         <div class="container mt-4" style="border:1px solid">
-            <div class="row pt-4">
-            <!-- <form>
-                @csrf
-                <div class="form-group">
-                    <label class="form-label">Enter Name: </label>
-                        <input type="text" id="name" name="name" class="form-control">
-                </div>
-                <div class="form-group pt-4">
-                    <label class="form-label">Enter Email: </label>
-                        <input type="email" id="email" name="email" class="form-control">
-                </div>
-                <div class="form-group pt-4">
-                    <label class="form-label">Enter Password: </label>
-                        <input type="password" id="password" name="password" class="form-control">
-                </div>
-                <div class="form-group pt-4">
-                    <label class="form-label">Select Number 1: </label>
-                    <select name="sel1" id="sel1" style="width:1116px">
-                        <option> ---------- Select Number 1 ---------- </option>                        
-                        @foreach($data as $allData)
-                            <option value="{{ $allData->id }}">{{ $allData->text }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group pt-4">
-                    <label class="form-label">Select Number 2: </label>
-                    <select name="sel2" id="sel2" style="width:1116px">                        
-                    </select>
-                </div>
-                <div class="form-group pt-4">
-                    <label class="form-label">Select Number 3: </label>
-                    <select name="sel3" id="sel3" style="width:1116px">                        
-                    </select>
-                </div>
-                <div class="form-group pt-4">
-                    <button class="btn btn-primary" id="btn" name="btn">Submit</button>
-                </div>
-                </form> -->
-            </div>
             <p align="center">HAPPY COFFEE CENTER</p>
-            <label for="selForCoffee" class="form-label">Select Coffee cup size: </label>
-                <select id="selForCoffee" class="form-control">
-                    <option value=""> ------------ Please select ------------ </option>
-                    <option value="100"> Small</option>
-                    <option value="200"> Medium</option>
-                    <option value="300"> Large</option>
-                </select>
+                <div class="form-group">
+                    <label for="selForCoffee" class="form-label">Select Coffee cup size: </label>
+                        <select id="selForCoffee" class="form-control">
+                            <option value=""> ------------ Please select ------------ </option>
+                            <option value="100"> Small</option>
+                            <option value="200"> Medium</option>
+                            <option value="300"> Large</option>
+                        </select>
+                </div>
 
-            <label class="form-label">Enter Quantity: </label>
-            <form id="FormValidate">
-            @csrf
-                <input type="number" class="form-control" id="qty" name="qty">
-            </form>
-
-            <label class="form-label">Total Amount: </label>
-            <input type="text" class="form-control" id="calMoney" readonly>
-            
-            <div class="col pt-4 pb-4">
-                <!-- <button class="btn btn-primary" id="row">Calculate Money</button> -->
-            </div>
+                <label class="form-label">Enter Quantity: </label>
+                    <form id="FormValidate">
+                        @csrf
+                        <div class="form-group">
+                            <input type="number" class="form-control" id="qty" name="qty">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Total Amount: </label>
+                        </div>
+                        <div class="form-group mb-4">
+                            <input type="text" class="form-control" id="calMoney" readonly>
+                        </div>
+                    </form>
         </div>
     </body>
 </html>

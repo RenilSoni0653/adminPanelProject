@@ -128,10 +128,10 @@
                     },
                     messages: {
                         email : {
-                            required: "Enter valid email-id"
+                            required: "Email id is missing"
                         },
                         pwd : {
-                            required: "Enter corerct password"
+                            required: "Password is missing"
                         }
                     }
                 });
