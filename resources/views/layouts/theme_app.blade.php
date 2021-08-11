@@ -78,7 +78,6 @@
         };
     });
     </script>
-
     <!-- End of dropzone -->
 
     <!-- Custom styles for this template-->

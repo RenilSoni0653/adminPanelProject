@@ -70,4 +70,15 @@ class HomeController extends Controller
 
         return $demo_Data_2;
     }
+
+    public function addData(Request $request)
+    {
+        $query = \DB::table('demo_test_1')->insert([
+            'text' => $request->type
+        ]);
+
+        return response()->json([
+            'type' => $query
+        ]);
+    }
 }

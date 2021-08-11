@@ -117,8 +117,7 @@ class tableController extends Controller
             'age.required' => 'Age field is required',
             'start_date.required' => 'Start date field is required',
             'salary.required' => 'Salary field is required',
-        ]
-    );
+        ]);
 
         $data = $table->update([
             'user_id' => auth()->user()->id,

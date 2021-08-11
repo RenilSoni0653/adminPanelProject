@@ -85,8 +85,8 @@
             <a class="collapse-item" href="{{ route('Forgot-password') }}">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="{{ route('blank_Page_1') }}">Blank Page 1</a>
-            <a class="collapse-item" href="{{ route('blank_Page_2') }}">Blank Page 2</a>
+            <a class="collapse-item" href="{{ route('test_Page_1') }}">Test Page 1</a>
+            <a class="collapse-item" href="{{ route('test_Page_2') }}">Test Page 2</a>
         </div>
     </div>
 </li>

@@ -58,7 +58,6 @@ class ImageController extends Controller
             'name' => $request->file('file')->getClientOriginalName()
         ]);
         
-        
         $file = $request->file('file');
         $imgname = $file->getClientOriginalName();
         $file->move($path, $imgname);
@@ -73,7 +72,6 @@ class ImageController extends Controller
     {
         $query = DB::table('images')->where('id', $id)->first();
         $id = Image::find($query->id);
-
         $id->delete();
 
         return redirect('images/index')->with('success','Image deleted successfully');

@@ -34,18 +34,17 @@ Route::get('logout-home','ThemeController@logout')->name('logout_user');
 // Routes for tables.
 Route::middleware('auth')->group(function() {
     // Routes for home, login, logout, forgot-password.
+    Route::get('/home', 'ThemeController@index')->name('home');
     Route::post('account','ThemeController@store');
 
+    // Routes for tables and chart.
     Route::get('tables/index','TableController@index')->name('tables.index')->middleware('auth');
     Route::get('tables/create','TableController@create')->name('tables.create');
     Route::post('tables/store','TableController@store')->name('tables.store');
-    Route::get('/home', 'ThemeController@index')->name('home');
-    
-    // Routes for chart.
-    Route::get('charts/index','chartController@index')->name('charts.index');
     Route::get('tables/{id}/edit','TableController@edit')->name('tables.edit');
     Route::post('tables/update','TableController@update')->name('tables.update');
     Route::delete('tables/{id}','TableController@destroy')->name('tables.destroy');
+    Route::get('charts/index','chartController@index')->name('charts.index');
 
     // Routes for setting profile.
     Route::get('profile','profileController@index')->name('profile');
@@ -53,13 +52,6 @@ Route::middleware('auth')->group(function() {
     Route::get('activity-log','ThemeController@log')->name('activity-log');
     Route::get('settings','ThemeController@setting')->name('settings');
     Route::delete('account/{id}','ThemeController@destroy')->name('account.destroy');
-
-    // Routes for follow and unfollow (implementation is left)
-    Route::get('users','UserController@index')->name('users');
-    Route::get('notifications','UserController@notifications');
-    Route::post('users/{user}/follow','UserController@follow')->name('follow');
-    Route::delete('users/{user}/unfollow','UserController@unfollow')->name('unfollow');
-
 
     // Routes for trash data.
     Route::get('tables/trash','TableController@trash')->name('tables.trash');
@@ -87,15 +79,17 @@ Route::middleware('auth')->group(function() {
     Route::post('dropdown/store/{id}','DropdownController@store')->name('dropdown.store');
 
     // Routes for blank pages
-    Route::get('blank_Page_1','HomeController@blankPage_1')->name('blank_Page_1');
-    Route::get('blank_Page_2','HomeController@blankPage_2')->name('blank_Page_2');
+    Route::get('test_Page_1','HomeController@blankPage_1')->name('test_Page_1');
+    Route::get('test_Page_2','HomeController@blankPage_2')->name('test_Page_2');
     Route::get('test','HomeController@test')->name('test');
     Route::POST('Test','HomeController@test')->name('Test');
     Route::POST('blank_page_1','HomeController@demo_1')->name('blank_page_1');
     Route::POST('blank_page_2','HomeController@demo_2')->name('blank_page_2');
+    Route::POST('test_page_1/addData','HomeController@addData')->name('blank_page_1.addData');
 
     // Routes for Notification
     Route::get('notify/index','NotificationController@index')->name('user.notify');
+    
 });
 
 // Routes for forgot password (Custom)
