@@ -30,23 +30,15 @@
                             </div>
                         </div>
                         @endif
-                        <img src="" id="img_edit" style="border-radius:35px; width:126px; height:126px; margin-right: 795px">
                                             
-                        <form action="{{ url('images/'.$images->id.'/update') }}" method="POST" enctype="multipart/form-data" class="dropzone" id="dropzone">
+                        <form action="{{ url('images/'.$images->id.'/update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="card-body"">
-                                <div class="table-responsive">
-                                        <div class="form-controller">
-                                            <div class="dz-message">
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="form-group">
-                            <button onClick="window.history.back();" class="btn btn-primary">Back</button>
-                        </div>
+                                <div class="needsclick dropzone" id="document-dropzone"></div>
+                        </form>
+                    </div>
+                    <div class="form-group">
+                        <button onClick="window.history.back();" class="btn btn-primary">Back</button>
+                    </div>
                     <!-- /.container-fluid -->
                 </div>
             </div>
@@ -84,31 +76,44 @@
 
     <!-- Page level custom scripts -->
     <script src="{!! asset('theme/js/demo/datatables-demo.js') !!}"></script>
-    @php
-        $imageName = '/images/'.$images->name;
-    @endphp
 
-    <!-- Javascript for Dropzone -->
-    <script type="text/javascript">
-        Dropzone.options.dropzone = {
-            init: function() {
-                let myDropzone = this;
-
-                // If the thumbnail is already in the right size on your server:
-                let mockFile = { name: "{{ asset('moweb.png') }}", size: 12345 };
-                let callback = null; // Optional callback when it's done
-                let crossOrigin = null; // Added to the `img` tag for crossOrigin handling
-                let resizeThumbnail = false; // Tells Dropzone whether it should resize the image first
-                myDropzone.displayExistingFile(mockFile, "localhost:8000/moweb.png", callback, crossOrigin, resizeThumbnail);
-            }
-        }
-    </script>
+    <!-- Script for Dropzone -->
     <script>
-        $(document).ready(function() {
-           $(document).ready(function () {
-               var printImageName = "<?php echo $imageName; ?>";
-               var img = $('#img_edit').attr('src',printImageName);
-           }); 
-        });
+        var uploadedDocumentMap = {};
+        var imageId = "<?php echo $images->id; ?>";
+
+        Dropzone.options.documentDropzone = {
+            url: '{{ route('images.update') }}?id=' + imageId,
+            maxFilesize: 5,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            data: {
+                id: imageId
+            },
+            removedfile: function (file) {
+                file.previewElement.remove();
+                var name = '';
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name;
+                } else {
+                    name = uploadedDocumentMap[file.name];
+                }
+            },
+            init: function () {
+                var imgName = "<?php echo $images->name ?>";
+                var myDropzone = this;
+                var mockFile = { name: imgName , size: 12345 };
+                
+                if(imgName == '') {
+                    return false;
+                }
+                else {
+                    myDropzone.options.addedfile.call(myDropzone, mockFile);
+                    myDropzone.options.thumbnail.call(myDropzone, mockFile, '/images/' + imgName);
+                }
+            }
+        };
     </script>
 @endsection

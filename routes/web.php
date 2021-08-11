@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function() {
     Route::get('images/index', 'ImageController@index')->name('images.index');
     Route::get('images/uploadImage','ImageController@uploadImage')->name('images.uploadImage');
     Route::get('images/{id}/edit', 'ImageController@edit')->name('images.edit');
-    Route::post('images/{id}/update', 'ImageController@update')->name('images.update');
+    Route::post('images/update', 'ImageController@update')->name('images.update');
     Route::post('images/upload/store', 'ImageController@uploadFile')->name('images.store');
     Route::delete('images/{id}','ImageController@destroy')->name('image.destroy');
 
